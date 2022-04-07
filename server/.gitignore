@@ -35,4 +35,3 @@ build/
 
 src/main/java/rest/app/config/
 src/main/java/rest/app/Config.java
-src/main/resources/

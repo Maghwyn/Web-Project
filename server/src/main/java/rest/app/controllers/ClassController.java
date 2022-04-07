@@ -42,7 +42,7 @@ public class ClassController {
     }
 
     @DeleteMapping("{id}")
-    public void updateClass(@PathVariable(value="id") int classId) throws SQLException, URISyntaxException{
+    public void deleteClass(@PathVariable(value="id") int classId) throws SQLException, URISyntaxException{
         dao.delete(classId);
     }
 }

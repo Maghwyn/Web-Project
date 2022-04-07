@@ -41,7 +41,7 @@ public class PublicationController {
     }
 
     @DeleteMapping("users/{uid}/publication/{pid}")
-    public void updatePublication(@PathVariable(value="pid") int publicationId, @PathVariable(value="cid") int categoryId, @PathVariable(value="uid") int userId) throws SQLException, URISyntaxException{
+    public void deletePublication(@PathVariable(value="pid") int publicationId, @PathVariable(value="cid") int categoryId, @PathVariable(value="uid") int userId) throws SQLException, URISyntaxException{
         dao.delete(publicationId, categoryId, userId);
     }
 }

@@ -42,7 +42,7 @@ public class OpinionController {
     }
 
     @DeleteMapping("users/{uid}/publication/{pid}")
-    public void updateOpinion(@PathVariable(value="uid") int userId, @PathVariable(value="pid") int publicationId) throws SQLException, URISyntaxException{
+    public void deleteOpinion(@PathVariable(value="uid") int userId, @PathVariable(value="pid") int publicationId) throws SQLException, URISyntaxException{
         dao.delete(userId, publicationId);
     }
 }
