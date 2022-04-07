@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1/opinions")
 public class OpinionController {
-
     private OpinionDAO dao = new OpinionDAO();
 
     @GetMapping("")
@@ -38,12 +37,12 @@ public class OpinionController {
     }
 
     @PutMapping("users/{uid}/publication/{pid}")
-    public void updateUser(@PathVariable(value="uid") int userId, @PathVariable(value="pid") int publicationId, @RequestBody Opinion opinion) throws SQLException, URISyntaxException{
+    public void updateOpinion(@PathVariable(value="uid") int userId, @PathVariable(value="pid") int publicationId, @RequestBody Opinion opinion) throws SQLException, URISyntaxException{
         dao.update(userId, publicationId, opinion);
     }
 
     @DeleteMapping("users/{uid}/publication/{pid}")
-    public void updateUser(@PathVariable(value="uid") int userId, @PathVariable(value="pid") int publicationId) throws SQLException, URISyntaxException{
+    public void updateOpinion(@PathVariable(value="uid") int userId, @PathVariable(value="pid") int publicationId) throws SQLException, URISyntaxException{
         dao.delete(userId, publicationId);
     }
 }

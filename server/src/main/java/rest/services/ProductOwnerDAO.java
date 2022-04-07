@@ -70,12 +70,12 @@ public class ProductOwnerDAO {
 
     public void update(int poid, ProductOwner po) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "UPDATE productowners SET productownerfirstname=? , productownerlastname=?, productowneremail=? WHERE productownerid=?;";
+            String sql = "UPDATE productowners SET productownerfirstname=?, productownerlastname=?, productowneremail=? WHERE productownerid=?;";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setString(1, po.getFirstName());
                 st.setString(2, po.getLastName());
                 st.setString(3, po.getEmail());
-                st.setInt(5, poid);
+                st.setInt(4, poid);
                 st.execute();
             }
         }
