@@ -82,7 +82,7 @@ public class ClassDAO {
 
     public void delete(int cid) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "DELETE FROM opinions WHERE classid=?;";
+            String sql = "DELETE FROM classes WHERE classid=?;";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setInt(1, cid);
                 st.execute();
