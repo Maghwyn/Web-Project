@@ -1,6 +1,6 @@
-import {Home, Classes} from "./views/Home";
+import {Home, Classes, Ressources} from "./views/Home";
 
 
 export {
-  Home, Classes
+  Home, Classes, Ressources
 }

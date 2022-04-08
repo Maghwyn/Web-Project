@@ -7,7 +7,7 @@ const Layout = props => {
     const location = useLocation();
 
     const renderFooter = () => {
-        const routes = ["/", "/home", "/notre-approche", "/notre-offre", "/qui-sommes-nous", "/contact", "/legal"];
+        const routes = ["/", "/home", "/ressources", "/notre-offre", "/qui-sommes-nous", "/contact", "/legal"];
         return routes.includes(location.pathname.toLowerCase());
     }
 
