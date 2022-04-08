@@ -3,18 +3,11 @@ import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.*;
 import rest.models.Publication;
 import rest.services.PublicationDAO;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("api/v1/publications")
 public class PublicationController {
@@ -29,6 +22,20 @@ public class PublicationController {
     public Publication getPublicationById(@PathVariable(value="pid") int publicationId, @PathVariable(value="cid") int categoryId, @PathVariable(value="uid") int userId) throws SQLException, URISyntaxException{
         return dao.getPublicationById(publicationId, categoryId, userId);
     }
+
+
+    @GetMapping("/{categoryName}")
+    public List<Publication> getPublicationByCategoryName(@PathVariable(value = "categoryName") String categoryName) throws SQLException, URISyntaxException {
+        return dao.getPublicationByCategoryName(categoryName);
+    }
+
+
+    // GET EACH CATEGORIESTAGSNAME TO RETURN IT AND PRINT TO TAGS
+    @GetMapping("/categoryTagName")
+    public List<Publication> getPublicationByCategoryTagName() throws SQLException, URISyntaxException {
+        return dao.getPublicationByCategoryTagName();
+    }
+
 
     @PostMapping("")
     public void createPublication(@RequestBody Publication publication) throws SQLException, URISyntaxException{

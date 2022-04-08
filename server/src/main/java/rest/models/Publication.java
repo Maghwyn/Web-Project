@@ -7,6 +7,28 @@ public class Publication {
     private String publicationTitle;
     private String content;
     private String date;
+    //
+    // FROM USER FOR LIST IN REQUEST PUBLICATIONS
+    private String firstName;
+    //
+    // FROM CATEGORY FOR LIST IN REQUEST PUBLICATIONS
+    private String categoryName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
     public int getPublicationId() {
         return publicationId;

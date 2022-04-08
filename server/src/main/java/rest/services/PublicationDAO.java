@@ -17,14 +17,69 @@ public class PublicationDAO {
 
     public List<Publication> getPublications() throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "SELECT * FROM publications;";
+            String sql = "SELECT P.* , U.userFirstName, C.categoryName \n" +
+                    "FROM Users U, Publications P, Categories C \n" +
+                    "WHERE P.userId = U.userId \n" +
+                    "AND P.categoryId = C.categoryId";
             try (Statement st = co.createStatement()) {
                 try (ResultSet rs = st.executeQuery(sql)) {
                     List<Publication> list = new ArrayList<>();
                     while (rs.next()) {
                         Publication p = new Publication();
+                        p.setFirstName(rs.getString("userFirstName"));
+                        p.setCategoryName(rs.getString("categoryName"));
                         p.setPublicationId(rs.getInt("publicationid"));
                         p.setCategoryId(rs.getInt("categoryid"));
+                        p.setUserId(rs.getInt("userid"));
+                        p.setPublicationTitle(rs.getString("publicationtitle"));
+                        p.setContent(rs.getString("content"));
+                        p.setDate(rs.getString("date"));
+                        list.add(p);
+                    }
+                    return list;
+                }
+            }
+        }
+    }
+
+    public List<Publication> getPublicationByCategoryTagName() throws SQLException, URISyntaxException {
+        try (Connection co = connection.get()) {
+            String sql = "SELECT categoryName From Categories\n" +
+                    "Group By categoryName;";
+            try (Statement st = co.createStatement()) {
+                try (ResultSet rs = st.executeQuery(sql)) {
+                    List<Publication> list = new ArrayList<>();
+                    while (rs.next()) {
+                        Publication p = new Publication();
+                        p.setCategoryName(rs.getString("categoryName"));
+                        list.add(p);
+                    }
+                    return list;
+                }
+
+            }
+
+
+        }
+
+    }
+
+    public List<Publication> getPublicationByCategoryName(String categoryName) throws SQLException, URISyntaxException {
+        try (Connection co = connection.get()) {
+            String sql = "SELECT P.* , U.userFirstName, C.categoryName\n" +
+                    "FROM Publications P, Categories C, Users U\n" +
+                    "WHERE P.categoryId = C.categoryId\n" +
+                    "AND C.categoryName = ? \n" +
+                    "ORDER BY P.date desc;";
+            try (PreparedStatement st = co.prepareStatement(sql)) {
+                st.setString(1, categoryName);
+                try (ResultSet rs = st.executeQuery()) {
+                    List<Publication> list = new ArrayList<>();
+                    while (rs.next()) {
+                        Publication p = new Publication();
+                        p.setPublicationId(rs.getInt("publicationid"));
+                        p.setCategoryId(rs.getInt("categoryid"));
+                        p.setCategoryName(rs.getString("categoryName"));
                         p.setUserId(rs.getInt("userid"));
                         p.setPublicationTitle(rs.getString("publicationtitle"));
                         p.setContent(rs.getString("content"));
