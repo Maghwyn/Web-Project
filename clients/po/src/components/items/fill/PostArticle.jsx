@@ -41,7 +41,7 @@ const PostArticle = () => {
                 value="word"
                 onClick={async () => {
                   // const sentenceToTransform = { wordCompletion };
-                  const response = await fetch("/", {
+                  const response = await fetch("http://localhost:8080/api/v1/publications", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -51,6 +51,7 @@ const PostArticle = () => {
                     .then((res) => res.json())
                     .then(
                       (resp) => console.log(resp));
+
                         // setSentiment(resp["sentence"]) +
                         // setAnimationTextFadeIn("animationTextFadeIn") 
                 }}

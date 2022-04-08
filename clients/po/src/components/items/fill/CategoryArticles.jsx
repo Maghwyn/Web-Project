@@ -4,12 +4,12 @@ import { useState, useCallback, useEffect } from "react";
 const CategoryArticles = ({value}) => {
   // const category = ;
 
-  useEffect(() => {
-    console.log(value);
-    console.log("uazhuhazuehazuheuazhuehauzheu");
+  // useEffect(() => {
+  //   console.log(value);
+  //   console.log("uazhuhazuehazuheuazhuehauzheu");
 
-  }, [value]);
-  console.log(value);
+  // }, [value]);
+  // console.log(value);
   return (
     <div>
       {/* {category.articles.map((article, index) => {
