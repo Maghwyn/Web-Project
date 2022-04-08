@@ -1,0 +1,38 @@
+{
+  "properties": [
+    {
+      "name": "spring.security.oauth2.client.registration.google.clientId",
+      "type": "java.lang.String",
+      "description": "Description for spring.security.oauth2.client.registration.google.clientId."
+    },
+    {
+      "name": "spring.security.oauth2.client.registration.google.clientSecret",
+      "type": "java.lang.String",
+      "description": "Description for spring.security.oauth2.client.registration.google.clientSecret."
+    },
+    {
+      "name": "spring.security.oauth2.client.registration.google.scope",
+      "type": "java.lang.String",
+      "description": "Description for spring.security.oauth2.client.registration.google.scope."
+    },
+    {
+      "name": "app.auth.tokenSecret",
+      "type": "java.lang.String",
+      "description": "Description for app.auth.tokenSecret."
+    },
+    {
+      "name": "app.auth.tokenExpirationMsec",
+      "type": "java.lang.Integer",
+      "description": "Description for app.auth.tokenExpirationMsec."
+    },
+    {
+      "name": "app.cors.allowedOrigins",
+      "type": "java.lang.String",
+      "description": "Description for app.cors.allowedOrigins."
+    },
+    {
+      "name": "app.oauth2.authorizedRedirectUris",
+      "type": "java.lang.String",
+      "description": "Description for app.oauth2.authorizedRedirectUris."
+    }
+  ] }
