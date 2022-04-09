@@ -1,20 +1,18 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState } from 'react';
+import axios from 'axios';
 import PostArticle from './PostArticle';
 import Articles from './Articles';
 import CategoryArticles from './CategoryArticles';
 import TagCategory from './TagCategory';
 
 const Fill = () => {
-  const [articles, setArticles] = useState("");
-  const [publicationsDate, setPublicationsDate] = useState("");
-  const [category, setCategory] = useState("");
-  const [arrayTest, setArrayTest] = useState([]);
-  const [arrayTag, setArrayTag] = useState([]);
-  const isMounted = useRef(false);
+  const [fetchArrayPublications, setFetchArrayPublications] = useState([]);
+  const [arrayCategoriesTag, setArrayCategoriesTag] = useState([]);
 
+
+  //  URL FOR FETCHING ALL PUBLICATIONS 
   const url = "http://localhost:8080/api/v1/publications";
-  const urlTag = "http://localhost:8080/api/v1/publications/categoryTagName";
-  const fetchArticles = async () => {
+  const fetchPublications = async () => {
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -24,11 +22,13 @@ const Fill = () => {
     })
       .then((res) => res.json()).then((resp) => {
         // console.log(resp);
-        setArrayTest(resp);
+        setFetchArrayPublications(resp);
       });
-      
-   
   };
+  // END FETCHING ALL PUBLICATIONS ---------------
+
+  //  URL FOR FETCHING ALL CATEGORIES IN ALL PUBLICATIONS
+  const urlTag = "http://localhost:8080/api/v1/publications/categoryTagName";
   const fetchCategoryTag = async () => {
     const responseTag = await fetch(urlTag, {
       method: "GET",
@@ -39,30 +39,23 @@ const Fill = () => {
     })
       .then((res) => res.json()).then((resp) => {
         // console.log(resp);
-        setArrayTag(resp);
+        setArrayCategoriesTag(resp);
       });
-      
-   
   };
+  // END OF FETCHING CATEGORIES ----------------
 
+  // CALL FUNCTIONS FETCHING IN USE EFFECT TO GET DATA
   useEffect(() => {
-    fetchArticles();
+    fetchPublications();
     fetchCategoryTag();
     // console.log("bonjour")
   }, []);
-
-  useEffect(() => {
-    if (!isMounted.current) {
-      isMounted.current = true;
-      // console.log("bonjour");
-    } else {
-      isMounted.current = false;
-      // console.log("au revoir");
-    }
-  }, [arrayTest, arrayTag]);
+  // -----------------------------
+  
 
 
-  const printArticles = arrayTest.map((data, index) => {
+  // MAPPING ALL PUBLICATIONS FROM THE FETCH
+  const printPublicationsFetched = fetchArrayPublications.map((data, index) => {
     return <div key={index}>
       <ul>
       <li>{data.publicationTitle}</li>
@@ -72,31 +65,32 @@ const Fill = () => {
         <li>{data.firstName}</li>
         </ul></div> 
   });
+  // ----------------------------
 
-  const tagCategory = arrayTag.map((data, index) => {
-    return <div key={index}>
-      <ul>
-      <li>{data.categoryName}</li>
-        </ul></div> 
+  // MAPPING ALL CATEGORIES TAGS FROM THE FETCH
+  const printTagCategory = arrayCategoriesTag.map((data, index) => {
+    return <div key={index} value={data.categoryName} className={data.categoryName}>
+      {data.categoryName}
+    </div>
   } );
+  // --------------------------
 
-  
-  
 
   return (
     <>
     <div className="fill">
-      <div>{printArticles}</div>
-      <CategoryArticles value={printArticles}/>
-      
-      
+
+      <div>{printPublicationsFetched}
+      <CategoryArticles value={printPublicationsFetched}/>
       <PostArticle />
       <Articles />
-      
-    </div>
-    <div>
-      {tagCategory}
-    </div>
+
+
+      {/* PASSING DATA TO CHILD : TAGCATEGORY COMPONENT */}
+      <TagCategory printTagCategory={printTagCategory}/>
+      </div>
+
+    </div> 
     </>
   );
 };

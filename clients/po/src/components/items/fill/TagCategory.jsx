@@ -1,74 +1,68 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useCallback } from 'react';
 
-const TagCategory = ({tag}) => {
+const TagCategory = ({printTagCategory}) => {
   const [category, setCategory] = useState([]);
+  const [Once, setOnce] = useState(false);
+  const [arrayCategory, setArrayCategory] = useState([]);
 
 
-
-
-  useEffect(() => {
-    // for (let i = 0; i < key.length; i++) {
-    //   console.log(tag[i]);
-    // }
-
-    // console.log(tag[0].key);
-    // console.log(key[1]);
-
-  }, [tag]);
   
 
+  useEffect(() => {
+    if (Once === false) {
+    for (let i = 0; i < printTagCategory.length; i++) {
+      setCategory(category => [...category, printTagCategory[i].props.children]);
+      setOnce(true);}
+    }
+    else {
+      console.log("already done");
+    }
+  }, [Once , printTagCategory]);
 
+  const refresh = useCallback((event) => {
+    let category = event.target.innerText;
+    // console.log(event.target.innerText);
+    const GetArticlesCategory = async () => {
+      const response = await fetch(`http://localhost:8080/api/v1/publications/${category}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin" : '*'
+        },
+      })
+        .then((res) => res.json()).then((resp) => {
+          setArrayCategory(resp);
+        });
+      } 
+      GetArticlesCategory();
 
+    }
+  );
+      const tagArray =  arrayCategory.map((data, index) => {
+        return <div key={index}>
+          <ul>
+            <li>{data.publicationTitle}</li>
+            <li>{data.content}</li>
+            <li>{data.date}</li>
+            <li>{data.categoryName }</li>
+            <li>{data.firstName}</li>
+            </ul></div>
+            });
 
-
-
-
-
-  // filter data to not have duplicate tags
-  // const filterData = (data) => {
-  //   const newFilter = Object.keys(tag).reduce((result, key) => {
-  //     if (tag[key].values.includes(data)) {
-  //       result.push(tag[key]);
-  //     };
-  //     return result;
-  //   }, []);
-  //   console.log(tag)
-  //   setFilterData(newFilter);
-  // };
-
-  //call filter data function when search word is changed
-
-
-//   for (let i = 0;  i < tag.length; i++)  {
-//     let searchWord = tag[i].key; 
-//   const newFilter = Object.keys(tag).reduce((result, key) => {
-//     console.log(searchWord);
-//     console.log("aziejiazjeiaeiz");
-//     console.log(key.value);
-//     // if (result[key].value.includes(searchWord)) {
-//     //   result.push(tag[key]);
-//     // };
-//     // return result;
-//   }, []);
-//   // setFilterData(newFilter);
-// }
-
-//   console.log(FilterData);
-
-
-
-
-
-
-
-
-
+  const returnAllCategoryTag = category.map((data, index) => {
+    return <div key={index} value={data} className={data}>
+      <button onClick={refresh} >{data}</button>
+        </div> 
+  })
 
 
   return (
-    <div>
-      
+    <>
+    <div >
+      {returnAllCategoryTag}
+      {tagArray}
     </div>
+    </>
   );
 };
 

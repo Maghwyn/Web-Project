@@ -81,6 +81,7 @@ public class PublicationDAO {
                         p.setCategoryId(rs.getInt("categoryid"));
                         p.setCategoryName(rs.getString("categoryName"));
                         p.setUserId(rs.getInt("userid"));
+                        p.setFirstName(rs.getString("userFirstName"));
                         p.setPublicationTitle(rs.getString("publicationtitle"));
                         p.setContent(rs.getString("content"));
                         p.setDate(rs.getString("date"));
