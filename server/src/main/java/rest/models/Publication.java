@@ -7,6 +7,26 @@ public class Publication {
     private String publicationTitle;
     private String content;
     private String date;
+    private int notation;
+    private int notationPublicationId;
+
+    public int getNotationPublicationId() {
+        return notationPublicationId;
+    }
+
+    public void setNotationPublicationId(int notationPublicationId) {
+        this.notationPublicationId = notationPublicationId;
+    }
+
+    // FROM NOTATION TO GET ALL NOTATIONS BY ARTICLES
+    public int getNotation() {
+        return notation;
+    }
+
+    public void setNotation(int notation) {
+        this.notation = notation;
+    }
+
     //
     // FROM USER FOR LIST IN REQUEST PUBLICATIONS
     private String firstName;

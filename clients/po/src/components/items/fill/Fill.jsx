@@ -4,6 +4,7 @@ import PostArticle from './PostArticle';
 import Articles from './Articles';
 import CategoryArticles from './CategoryArticles';
 import TagCategory from './TagCategory';
+import Opinions from './Opinions';
 
 const Fill = () => {
   const [fetchArrayPublications, setFetchArrayPublications] = useState([]);
@@ -21,7 +22,7 @@ const Fill = () => {
       },
     })
       .then((res) => res.json()).then((resp) => {
-        // console.log(resp);
+        // console.log(resp)
         setFetchArrayPublications(resp);
       });
   };
@@ -56,13 +57,31 @@ const Fill = () => {
 
   // MAPPING ALL PUBLICATIONS FROM THE FETCH
   const printPublicationsFetched = fetchArrayPublications.map((data, index) => {
+    // console.log(data);
+    let like; 
+    let review;
+    let notLike;
+    let count;
+    if (data.notation === 1) {
+      like = "like"
+    }  
+    if (data.notation === 2){
+      review = "review";
+    }
+    if (data.notation === 3) {
+      notLike = "not like"
+    }
+    // {data.notationPublicationId === data.publicationId ? count = count + 1 : null}
+    // console.log(data);
     return <div key={index}>
+      
       <ul>
       <li>{data.publicationTitle}</li>
         <li>{data.content}</li>
         <li>{data.date}</li>
         <li>{data.categoryName }</li>
         <li>{data.firstName}</li>
+        <li>{like}{review}{notLike}</li>
         </ul></div> 
   });
   // ----------------------------
@@ -75,6 +94,10 @@ const Fill = () => {
   } );
   // --------------------------
 
+  const [user, setUser] = useState('');
+  const [userLastName, setUserLastName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userCanView, setUserCanView] = useState(0);
 
   return (
     <>
@@ -82,6 +105,7 @@ const Fill = () => {
 
       <div>{printPublicationsFetched}
       <CategoryArticles value={printPublicationsFetched}/>
+      <Opinions props={printPublicationsFetched}/>
       <PostArticle />
       <Articles />
 
@@ -89,6 +113,37 @@ const Fill = () => {
       {/* PASSING DATA TO CHILD : TAGCATEGORY COMPONENT */}
       <TagCategory printTagCategory={printTagCategory}/>
       </div>
+
+      <form
+      onSubmit={(e) => e.preventDefault()}>
+        <input type="text" name="firstName" value={user} onChange={(e) => setUser(e.target.value)} />
+        <input type="text" name="lastName" value={userLastName} onChange={(e) => setUserLastName(e.target.value)} />
+        <input type="text" name="email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
+        <input type="text" name="canView" value={userCanView} onChange={(e) => setUserCanView(e.target.value)} />
+        <button
+                id="sendText"
+                type="submit"
+                onClick={async () => {
+                  const response = await fetch("http://localhost:8080/api/v1/users", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({"firstName": user,
+                    "lastName" : userLastName,
+                    "email" : userEmail,
+                    "canView" : userCanView})
+                  })
+                    .then((res) => 
+                    res.json())
+                    .then(
+                      (resp) => console.log(resp)
+                    );
+                }}
+              >CLIck onSubmit</button>
+
+
+      </form>
 
     </div> 
     </>

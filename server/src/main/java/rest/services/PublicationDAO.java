@@ -17,27 +17,32 @@ public class PublicationDAO {
 
     public List<Publication> getPublications() throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "SELECT P.* , U.userFirstName, C.categoryName \n" +
-                    "FROM Users U, Publications P, Categories C \n" +
-                    "WHERE P.userId = U.userId \n" +
-                    "AND P.categoryId = C.categoryId";
+            String sql = "SELECT P.*, O.notation, O.publicationid,  U.userFirstName, C.categoryName\n" +
+                    "FROM Publications P\n" +
+                    "FULL JOIN Users U on P.userId = U.userId\n" +
+                    "FULL JOIN Categories C on C.categoryId = P.categoryId\n" +
+                    "FULL JOIN Opinions O on P.publicationid = O.publicationid;";
             try (Statement st = co.createStatement()) {
                 try (ResultSet rs = st.executeQuery(sql)) {
-                    List<Publication> list = new ArrayList<>();
-                    while (rs.next()) {
-                        Publication p = new Publication();
-                        p.setFirstName(rs.getString("userFirstName"));
-                        p.setCategoryName(rs.getString("categoryName"));
-                        p.setPublicationId(rs.getInt("publicationid"));
-                        p.setCategoryId(rs.getInt("categoryid"));
-                        p.setUserId(rs.getInt("userid"));
-                        p.setPublicationTitle(rs.getString("publicationtitle"));
-                        p.setContent(rs.getString("content"));
-                        p.setDate(rs.getString("date"));
-                        list.add(p);
-                    }
-                    return list;
-                }
+                        List<Publication> list = new ArrayList<>();
+                        while (rs.next()){
+                            Publication p = new Publication();
+                            p.setNotation(rs.getInt("notation"));
+                            p.setNotationPublicationId(rs.getInt("publicationId"));
+                            p.setFirstName(rs.getString("userFirstName"));
+                            p.setCategoryName(rs.getString("categoryName"));
+                            p.setPublicationId(rs.getInt("publicationid"));
+                            p.setCategoryId(rs.getInt("categoryid"));
+                            p.setUserId(rs.getInt("userid"));
+                            p.setPublicationTitle(rs.getString("publicationtitle"));
+                            p.setContent(rs.getString("content"));
+                            p.setDate(rs.getString("date"));
+                            list.add(p);
+                            }
+                        return list;
+                        }
+
+
             }
         }
     }
@@ -119,13 +124,13 @@ public class PublicationDAO {
 
     public void add(Publication publication) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "INSERT INTO publications (categoryid, userid, publicationtitle, content, date) VALUES(?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO publications (categoryid, userid, publicationtitle, content) VALUES(?, ?, ?, ?);";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setInt(1, publication.getCategoryId());
                 st.setInt(2, publication.getUserId());
                 st.setString(3, publication.getPublicationTitle());
                 st.setString(4, publication.getContent());
-                st.setString(5, publication.getDate());
+//                st.setString(5, publication.getDate());
                 st.execute();
             }
         }

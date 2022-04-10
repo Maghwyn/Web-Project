@@ -15,7 +15,7 @@ const TagCategory = ({printTagCategory}) => {
       setOnce(true);}
     }
     else {
-      console.log("already done");
+      // console.log("already done");
     }
   }, [Once , printTagCategory]);
 

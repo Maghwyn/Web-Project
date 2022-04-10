@@ -1,68 +1,70 @@
-import React from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 
 const PostArticle = () => {
+  const [titlePublication, setTitlePublication] = useState('');
+  const [contentPublication, setContentPublication] = useState('');
+  const [categoryPublication, setCategoryPublication] = useState('');
+  const [categoryId, setCategoryId] = useState();
+
+  const fetchValue = useCallback = () => {
+    // let category = e.target.innerText;
+    // console.log(categoryPublication);
+    const GetArticlesCategory = async () => {
+      const response = await fetch(`http://localhost:8080/api/v1/publications/${categoryPublication}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin" : '*'
+        },
+      }).then((res) => res.json()).then((resp) => setCategoryId(resp[0].categoryId));
+      // Fix the error if category is not present
+
+    }
+      GetArticlesCategory();
+      console.log(categoryId);
+
+  }
+
 
 
 
   return (
     <>
-    <div>
-      <div className="post-article">
 
-      <div>
-        <form
-          // onChange={Empty}
-          // onSubmit={(e) =>
-            // e.preventDefault() +
-            // setSentence("") +
-            // setWordCompletion("") +
-            // setValidInputSentence(true) +
-            // setValidInputWord(true) +
-            // setValidButtonSend(true)
-          // }
-              >
-          
-          <p className="description">Quelles sont les news ? </p>
-          <input
-            className="surchText"
-            id="sentenceText"
-            type="text"
-            // disabled={validInputSentence}
-            // value={sentence}
-            // onChange={(e) => setSentence(e.target.value)}
-          />
-
-
-
-              <button
+<form
+      onSubmit={(e) => e.preventDefault()}>
+        <input type="text" name="publicationTitle" value={titlePublication} onChange={(e) => setTitlePublication(e.target.value)} />
+        <input type="text" name="content" value={contentPublication} onChange={(e) => setContentPublication(e.target.value)} />
+        <input type="text" name="categoryId" value={categoryPublication} onChange={(e) => {
+          setCategoryPublication(e.target.value);
+          }} onKeyUp={fetchValue}/>
+        <button
                 id="sendText"
-                // disabled={validButtonSend}
                 type="submit"
-                value="word"
                 onClick={async () => {
-                  // const sentenceToTransform = { wordCompletion };
                   const response = await fetch("http://localhost:8080/api/v1/publications", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(),
+                    body: JSON.stringify({
+                      "categoryId" : categoryId,
+                      "userId" : "2",
+                      "publicationTitle": titlePublication,
+                    "content" : contentPublication
+                    
+                    })
                   })
-                    .then((res) => res.json())
-                    .then(
-                      (resp) => console.log(resp));
-
-                        // setSentiment(resp["sentence"]) +
-                        // setAnimationTextFadeIn("animationTextFadeIn") 
+                    .then((res) =>  console.log(res)
+                    // res.json())
+                    // .then(
+                    //   (resp) => console.log(resp)
+                    );
                 }}
-              >
-                {" "}
-                Partagez vos connaissances !!!!
-              </button>
+              >CLIck insert publications</button>
               </form>
-            </div>   
-      </div>
-    </div>
+
+
     </>
   );
 };
