@@ -1,8 +1,8 @@
-import axios from "axios";
 import { BrowserRouter as Router, Routes as Switch, Route } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Portal from "../views/Portal";
 import Auth from "../views/Auth";
+import Redirect from "../components/items/Redirect";
 
 const RenderLogin = () => {
     const [loginPage, setLoginPage] = useState(null);
@@ -13,7 +13,7 @@ const RenderLogin = () => {
 
     async function oath(e) {
         e.preventDefault();
-        window.location = "http://localhost:5001/auth/google";
+        window.location = "http://localhost:5001/auth/google?user=student";
     }
 
     return (
@@ -25,7 +25,7 @@ const RenderLogin = () => {
                       :
                         <Portal getLogin={fetchLogin}/>
                 }/>
-                <Route path="*" element={null} />
+                <Route path="*" element={<Redirect />} />
             </Switch>
         </Router>
     )

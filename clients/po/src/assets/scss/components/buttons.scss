@@ -1,0 +1,15 @@
+.btn-variant1 {
+    border: none;
+    text-align: center;
+    background-color: azure;
+    padding: 10px 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.02);
+        background-color: rgb(199, 214, 214);
+    }
+}

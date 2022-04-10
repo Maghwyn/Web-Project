@@ -1,4 +1,3 @@
-import axios from "axios";
 import { OAuth2Strategy } from "passport-google-oauth";
 import User from "../models/user.js";
 
@@ -15,6 +14,8 @@ export default function config(passport) {
             const {id, name, emails} = profile;
             const {familyName, givenName} = name;
             const {value, verified} = emails[0];
+            
+            if(value.split("@")[1] !== "edu.esiee-it.fr") return done(null, false, "User email isn't from esiee-it.");
 
             const newUser = new User();
             newUser.setId(id);
@@ -23,30 +24,7 @@ export default function config(passport) {
             newUser.setEmail(value);
             newUser.setVerified(verified);
 
-            try {
-                const isUserInDatabase = await axios.get(`http://localhost:8080/api/v1/users/g/${id}/${process.env.TOKEN}`)
-                .then(res => { return res.data ? true : false;
-                }).catch(function(error) { console.log(error)});
-
-                if(isUserInDatabase) { 
-                    done(null, newUser.getUser()); 
-
-                    await axios.post("htptp://localhost:8080/api/v1/users/session", {"userGID": id})
-                    .then(res => {return res });
-                }
-                else {
-                    const body = {"firstName": givenName, "lastName": familyName, "canView": 1, "email": value, "userGID": id}
-                    await axios.post(`http://localhost:8080/api/v1/users`, body)
-                    .then(res => {return res});
-
-                    await axios.post("htptp://localhost:8080/api/v1/users/session", {"userGID": id})
-                    .then(res => {return res });
-
-                    done(null, newUser.getUser());
-                }
-            } catch(err) {
-                console.log(err);
-            }
+            return done(null, newUser.getUser());
         }
     ));
 

@@ -10,10 +10,12 @@ const App = () => {
 
     useEffect((auth) => {
         if(loading.current) {
-            (async () => { auth = await isUserAuthentificated()})()
-            setTimeout(() => {
+            (async () => { 
+              auth = await isUserAuthentificated()
+              setTimeout(() => {
                 setUser(prevVal => prevVal = auth);
-            }, 500);
+            }, 1000);
+            })()
             loading.current = false;
         }
     }, []);

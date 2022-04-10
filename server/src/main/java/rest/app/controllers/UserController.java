@@ -33,9 +33,9 @@ public class UserController {
     }
 
     @GetMapping("g/{gid}/{token}")
-    public User getUserByGID(@PathVariable(value="gid") String userGID, @PathVariable(value="token") String token) throws SQLException, URISyntaxException{
-        if(!Objects.equals(token, "3KM0gO-at1nxoVfqb5W5E-HLEHrYH5BLiwpC-jNRlOd")) return new User();
-        return dao.getUserByGID(userGID);
+    public Boolean getUserByGID(@PathVariable(value="gid") String userGID, @PathVariable(value="token") String token) throws SQLException, URISyntaxException{
+        if(!Objects.equals(token, "3KM0gO-at1nxoVfqb5W5E-HLEHrYH5BLiwpC-jNRlOd")) return null;
+        return dao.getUserByGID(userGID) != null;
     }
 
     @PostMapping("")

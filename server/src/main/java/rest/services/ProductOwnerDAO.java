@@ -28,6 +28,7 @@ public class ProductOwnerDAO {
                         p.setFirstName(rs.getString("productownerfirstname"));
                         p.setLastName(rs.getString("productownerlastname"));
                         p.setEmail(rs.getString("productowneremail"));
+                        p.setPoGID(rs.getString("productownergid"));
                         list.add(p);
                     }
                     return list;
@@ -48,6 +49,28 @@ public class ProductOwnerDAO {
                         p.setFirstName(rs.getString("productownerfirstname"));
                         p.setLastName(rs.getString("productownerlastname"));
                         p.setEmail(rs.getString("productowneremail"));
+                        p.setPoGID(rs.getString("productownergid"));
+                        return p;
+                    }
+                    return null;
+                }
+            }
+        }
+    }
+
+    public ProductOwner getProductOwnerByGID(String gid) throws SQLException, URISyntaxException {
+        try (Connection co = connection.get()) {
+            String sql = "SELECT * FROM productowners WHERE productownergid=?;";
+            try (PreparedStatement st = co.prepareStatement(sql)) {
+                st.setString(1, gid);
+                try (ResultSet rs = st.executeQuery()) {
+                    if (rs.next()) {
+                        ProductOwner p = new ProductOwner();
+                        p.setId(rs.getInt("productownerid"));
+                        p.setFirstName(rs.getString("productownerfirstname"));
+                        p.setLastName(rs.getString("productownerlastname"));
+                        p.setEmail(rs.getString("productowneremail"));
+                        p.setPoGID(rs.getString("productownergid"));
                         return p;
                     }
                     return null;
@@ -58,11 +81,12 @@ public class ProductOwnerDAO {
 
     public void add(ProductOwner po) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "INSERT INTO productowners (productownerfirstname, productownerlastname, productowneremail) VALUES(?, ?, ?);";
+            String sql = "INSERT INTO productowners (productownerfirstname, productownerlastname, productowneremail, productownergid) VALUES(?, ?, ?, ?);";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setString(1, po.getFirstName());
                 st.setString(2, po.getLastName());
                 st.setString(3, po.getEmail());
+                st.setString(4, po.getPoGID());
                 st.execute();
             }
         }

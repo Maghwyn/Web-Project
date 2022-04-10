@@ -1,16 +1,23 @@
 import axios from "axios";
 
-export async function isUserAuthentificated() {
-    const params = new URLSearchParams(document.cookie);
-    const token = params.get('user');
+export async function isUserAuthentificated(token = null) {
+    const cookies = document.cookie.split(" ");
+    
+    cookies.forEach(cookie => {
+        const params = new URLSearchParams(cookie);
+        const value = params.get('student');
+        if(value !== null) token = value;
+    });
 
     if(token === null) return false;
+    token = token.replace(";", "");
 
-    const status = await axios.get(`http://localhost:8080/api/v1/users/session/${token}`)
+    const authentified = await axios.get(`http://localhost:8080/api/v1/users/session/${token}`)
     .then(res => { return res.data })
     .catch(function(err){ return false});
 
-    console.log(status)
+    if(!authentified) return false;
 
-    return status;
+    localStorage.setItem('student', 'logged');
+    return true;
 }
