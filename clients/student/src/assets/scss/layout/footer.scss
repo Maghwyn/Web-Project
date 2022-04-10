@@ -3,6 +3,16 @@
 footer{
     background-color: rgb(95, 26, 100);
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: hidden;
+    width: 100%;
+    height: 12vh;
+    z-index: 10;
+    flex-shrink: 0;
+
     a{
         color: white;
         text-decoration: none;
@@ -17,5 +27,37 @@ footer{
     .reactIcon{
         height: 85px;
         width: 70px;
+    }
+}
+
+
+.footer {
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    transition: .4s ease-in-out;
+    background-color: #2c2e2f;
+    position: relative;
+
+    &-contact {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-copyright {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 30px;
+        color: white;
+        font-size: 12px;
+        align-items: center;
+        flex-direction: column;
+        gap: .3rem;
     }
 }

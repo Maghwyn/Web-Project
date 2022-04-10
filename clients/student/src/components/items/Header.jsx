@@ -1,51 +1,41 @@
 import logo from "../../assets/img/Logo.png";
-import profilePicture from "../../assets/img/Profile-picture.png";
-import magnifyingGlass from "../../assets/img/Black-Magnifying-Glass.png"
+import profilePicture from "../../assets/img/wProfile-picture.png";
 import { Link } from "react-router-dom";
 
-
-
-
-const Header = ()=>{ 
-
-    const Burger=()=>{
-    }
-
-    return(
+const Header = () => (
     <header className="header">
-        <nav className="navPhone">
-            <button className="burgerBTN" >burger</button>
-            <ul className="ulBurger">
-                <li> <Link to="/Ressource">Ressource</Link></li>
-                <li><Link to="/Cours">Cours</Link></li>
-            </ul>
-        </nav>
-        <div className="logoName">
-            <Link to="/">
-                <a className="siteName"> CodingSource</a>
-                <img src={logo} alt="" className="siteLogo"/>
+        <div className="header-logo">
+            <Link className="logo-wrapper" to="/home">
+                <div className="logo-link">
+                    <img src={logo} alt="" className="siteLogo"/>
+                </div>
+                <div className="logo-name">
+                    <span>CodingSource</span>
+                </div>
             </Link>
         </div>
-        <nav className="navPC">
-            <ul className="ulNav">
-                <li> <Link to="/Ressource">Ressource</Link></li>
+        <nav className="header-nav">
+            <ul>
+                <li><Link to="/Ressource">Ressource</Link></li>
                 <li><Link to="/Cours">Cours</Link></li>
             </ul>
         </nav>
-            <form className="surchBar" method="POST">
-                <input type="text" className="typeSurch" />
-                <button type="submit"  className="magnifyingGlassBtn">
-                    <img src={magnifyingGlass} alt="" className="magnifiyingGlassLogo"/>
-                </button>
+        <div className="header-search">
+            <form className="search-form">
+                <input className="search-bar" placeholder="Faire une recherche.." required></input>
+                <input className="search-submit" type="submit" value="GO" href="#"></input>
             </form>
-        <div className="profileSet">
-            <img src={profilePicture} alt="" className="profilPicture"/>
-            <p>userName</p>
-            <p>userFirstName</p>
+        </div>
+        <div className="header-user">
+            <div className="user-pic">
+                <img src={profilePicture} alt="user_pic"/>
+            </div>
+            <div className="user-name">
+                <span>example@edu.esiee-it.fr</span>
+            </div>
         </div>
     </header>
-    )
-}
+)
 
 
 export default Header;

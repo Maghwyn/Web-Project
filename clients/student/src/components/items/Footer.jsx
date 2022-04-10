@@ -1,17 +1,15 @@
 import { Link } from "react-router-dom";
-import Copyright from "../../assets/img/Copyright.png"
+
 const Footer = ()=>(
-
-
-<footer>
-    
-    <Link to="/Contact">Contact</Link>
-    <p>Framework utilisé "REACT"</p>
-    <img src={Copyright} alt="" className="copyright"/>
-
-</footer>    
-
-
-)   
+    <footer className="footer">
+        <div className="footer-contact">
+            <Link to="/Contact">Contact</Link>
+        </div>
+        <div className="footer-copyright">
+            <span>Framework : {"< "}React 18{" >"}</span>
+            <span>Copyright 2022-2022 ©</span>
+        </div>
+    </footer>
+)
 
 export default Footer;

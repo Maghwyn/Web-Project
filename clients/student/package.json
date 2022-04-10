@@ -2,7 +2,7 @@
   "name": "student",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://localhost:4000/home",
+  "homepage": "https://localhost:3000/auth",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
