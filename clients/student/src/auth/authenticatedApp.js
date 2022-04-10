@@ -9,6 +9,11 @@ const authenticatedApp = () => {
             <Layout>
                 <Switch>
                     <Route path="/home" element={<Home/>}/>
+                    <Route path="/ressource" element={<Home/>}/>
+                    <Route path="/flux" element={<Home/>}/>
+                    <Route path="/mes-cours" element={<Home/>}/>
+                    <Route path="/contact" element={<Home/>}/>
+                    <Route path="*" element={<Home/>}/>
                 </Switch>
             </Layout>
         </Router>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Footer = ()=>(
     <footer className="footer">
         <div className="footer-contact">
-            <Link to="/Contact">Contact</Link>
+            <Link to="/contact">Contact</Link>
         </div>
         <div className="footer-copyright">
             <span>Framework : {"< "}React 18{" >"}</span>

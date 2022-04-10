@@ -1,5 +1,7 @@
 const Home = () => (
-    <h1>Home page</h1>
+    <>
+        Bienvenue sur le website non officiel de la coding factory
+    </>
 )
 
 export default Home;

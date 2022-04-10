@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const Portal = ({getLogin}) => (
     <main className="auth">
         <div className="auth-box">

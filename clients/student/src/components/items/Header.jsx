@@ -1,5 +1,5 @@
 import logo from "../../assets/img/Logo.png";
-import profilePicture from "../../assets/img/wProfile-picture.png";
+import profilePicture from "../../assets/img/Profile-picture.png";
 import { Link } from "react-router-dom";
 
 const Header = () => (
@@ -7,7 +7,7 @@ const Header = () => (
         <div className="header-logo">
             <Link className="logo-wrapper" to="/home">
                 <div className="logo-link">
-                    <img src={logo} alt="" className="siteLogo"/>
+                    <img src={logo} alt="logo"/>
                 </div>
                 <div className="logo-name">
                     <span>CodingSource</span>
@@ -16,8 +16,9 @@ const Header = () => (
         </div>
         <nav className="header-nav">
             <ul>
-                <li><Link to="/Ressource">Ressource</Link></li>
-                <li><Link to="/Cours">Cours</Link></li>
+                <li><Link to="/ressource">Ressource</Link></li>
+                <li><Link to="/flux">Flux</Link></li>
+                <li><Link to="/cours">Cours</Link></li>
             </ul>
         </nav>
         <div className="header-search">
