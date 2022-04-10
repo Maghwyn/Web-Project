@@ -1,20 +1,20 @@
 package rest.models;
 
 public class UserSession {
-    private int userSID;
-    private int userId;
+    private String userSID;
+    private String userGID;
 
-    public int getUserSID() {
+    public String getUserSID() {
         return userSID;
     }
-    public int getUserId() {
-        return userId;
+    public String getUserGID() {
+        return userGID;
     }
 
-    public void setUserSID(int userSID) {
+    public void setUserSID(String userSID) {
         this.userSID = userSID;
     }
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserGID(String userGID) {
+        this.userGID = userGID;
     }
 }

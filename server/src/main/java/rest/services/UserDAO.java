@@ -27,8 +27,9 @@ public class UserDAO {
                         u.setId(rs.getInt("userid"));
                         u.setFirstName(rs.getString("userfirstname"));
                         u.setLastName(rs.getString("userlastname"));
-                        u.setEmail(rs.getString("useremail"));
                         u.setCanView(rs.getInt("canview"));
+                        u.setEmail(rs.getString("useremail"));
+                        u.setUserGID(rs.getString("usergid"));
                         list.add(u);
                     }
                     return list;
@@ -48,8 +49,31 @@ public class UserDAO {
                         u.setId(rs.getInt("userid"));
                         u.setFirstName(rs.getString("userfirstname"));
                         u.setLastName(rs.getString("userlastname"));
-                        u.setEmail(rs.getString("useremail"));
                         u.setCanView(rs.getInt("canview"));
+                        u.setEmail(rs.getString("useremail"));
+                        u.setUserGID(rs.getString("usergid"));
+                        return u;
+                    }
+                    return null;
+                }
+            }
+        }
+    }
+
+    public User getUserByGID(String gid) throws SQLException, URISyntaxException {
+        try (Connection co = connection.get()) {
+            String sql = "SELECT * FROM users WHERE usergid=?;";
+            try (PreparedStatement st = co.prepareStatement(sql)) {
+                st.setString(1, gid);
+                try (ResultSet rs = st.executeQuery()) {
+                    if (rs.next()) {
+                        User u = new User();
+                        u.setId(rs.getInt("userid"));
+                        u.setFirstName(rs.getString("userfirstname"));
+                        u.setLastName(rs.getString("userlastname"));
+                        u.setCanView(rs.getInt("canview"));
+                        u.setEmail(rs.getString("useremail"));
+                        u.setUserGID(rs.getString("usergid"));
                         return u;
                     }
                     return null;
@@ -60,12 +84,13 @@ public class UserDAO {
 
     public void add(User user) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "INSERT INTO users (userfirstname, userlastname, useremail, canview) VALUES(?, ?, ?, ?);";
+            String sql = "INSERT INTO users (userfirstname, userlastname, useremail, canview, usergid) VALUES(?, ?, ?, ?, ?);";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setString(1, user.getFirstName());
                 st.setString(2, user.getLastName());
                 st.setString(3, user.getEmail());
                 st.setInt(4, user.getCanView());
+                st.setString(5, user.getUserGID());
                 st.execute();
             }
         }

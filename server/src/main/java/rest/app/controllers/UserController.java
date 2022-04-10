@@ -3,6 +3,7 @@ package rest.app.controllers;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 import rest.models.User;
 import rest.services.UserDAO;
@@ -31,8 +32,14 @@ public class UserController {
         return dao.getUserById(userId);
     }
 
+    @GetMapping("g/{gid}/{token}")
+    public User getUserByGID(@PathVariable(value="gid") String userGID, @PathVariable(value="token") String token) throws SQLException, URISyntaxException{
+        if(!Objects.equals(token, "3KM0gO-at1nxoVfqb5W5E-HLEHrYH5BLiwpC-jNRlOd")) return new User();
+        return dao.getUserByGID(userGID);
+    }
+
     @PostMapping("")
-    public void createUser(@RequestBody User user) throws SQLException, URISyntaxException{
+    public void createUser(@RequestBody User user) throws SQLException, URISyntaxException {
         dao.add(user);
     }
 
