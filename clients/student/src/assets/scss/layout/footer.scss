@@ -1,0 +1,21 @@
+@import "../components/mixin.scss";
+
+footer{
+    background-color: rgb(95, 26, 100);
+    text-align: center;
+    a{
+        color: white;
+        text-decoration: none;
+    }
+    .copyright{
+        height: 15px;
+        width: 15px;
+    }
+    p{
+        color: white;
+    }
+    .reactIcon{
+        height: 85px;
+        width: 70px;
+    }
+}
