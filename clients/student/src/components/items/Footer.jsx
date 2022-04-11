@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
+import coding from "../../assets/img/coding_factory.png";
 
 const Footer = ()=>(
     <footer className="footer">
+        <div className="footer-coding">
+            <img src={coding} alt="coding_pic"></img>
+        </div>
         <div className="footer-contact">
             <Link to="/contact">Contact</Link>
         </div>

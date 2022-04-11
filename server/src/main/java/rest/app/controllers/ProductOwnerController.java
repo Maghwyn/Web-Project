@@ -27,7 +27,7 @@ public class ProductOwnerController {
         return dao.getProductOwners();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ProductOwner getProductOwnerById(@PathVariable(value="id") int poId) throws SQLException, URISyntaxException{
         return dao.getProductOwnerById(poId);
     }
@@ -43,12 +43,12 @@ public class ProductOwnerController {
         dao.add(po);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public void updateProductOwner(@PathVariable(value="id") int poId, @RequestBody ProductOwner po) throws SQLException, URISyntaxException{
         dao.update(poId, po);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public void deleteProductOwner(@PathVariable(value="id") int poId) throws SQLException, URISyntaxException{
         dao.delete(poId);
     }

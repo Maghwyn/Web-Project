@@ -26,7 +26,7 @@ const RenderApp = ({logged}) => {
                     <Route path="/home"      element={<get.Home/>}/>
                     <Route path="/ressource" element={<get.Ressources/>}/>
                     <Route path="/flux"      element={<get.Flux/>}/>
-                    <Route path="/mes-cours" element={<get.Classes info={user}/>}/>
+                    <Route path="/mes-cours" element={<get.Classes user={user}/>}/>
                     <Route path="/contact"   element={<get.Contact/>}/>
                     <Route path="*"          element={<get.Error/>}/>
                 </Switch>

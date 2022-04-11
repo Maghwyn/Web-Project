@@ -33,7 +33,26 @@ public class HasAccessDAO {
         }
     }
 
-    public HasAccess getSpecificAccessByIds(int cid, int uid) throws SQLException, URISyntaxException {
+    public List<HasAccess> getAllAccessByUserId(int uid) throws SQLException, URISyntaxException {
+        try (Connection co = connection.get()) {
+            String sql = "SELECT * FROM hasaccess WHERE userid=?;";
+            try (PreparedStatement st = co.prepareStatement(sql)) {
+                st.setInt(1, uid);
+                try (ResultSet rs = st.executeQuery()) {
+                    List<HasAccess> list = new ArrayList<>();
+                    while (rs.next()) {
+                        HasAccess h = new HasAccess();
+                        h.setClassId(rs.getInt("classid"));
+                        h.setUserId(rs.getInt("userid"));
+                        list.add(h);
+                    }
+                    return list;
+                }
+            }
+        }
+    }
+
+    public HasAccess getSpecificAccessByIds(int uid, int cid) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
             String sql = "SELECT * FROM hasaccess WHERE classid=? and userid=?;";
             try (PreparedStatement st = co.prepareStatement(sql)) {

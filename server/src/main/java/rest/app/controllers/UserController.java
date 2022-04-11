@@ -27,14 +27,13 @@ public class UserController {
         return dao.getUsers();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public User getUserById(@PathVariable(value="id") int userId) throws SQLException, URISyntaxException{
         return dao.getUserById(userId);
     }
 
     @GetMapping("g/{gid}")
     public User getUserByGID(@PathVariable(value="gid") String userGID) throws SQLException, URISyntaxException{
-        System.out.println("NTM");
         return dao.getUserByGID(userGID);
     }
 
@@ -49,12 +48,12 @@ public class UserController {
         dao.add(user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public void updateUser(@PathVariable(value="id") int userId, @RequestBody User user) throws SQLException, URISyntaxException{
         dao.update(userId, user);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public void deleteUser(@PathVariable(value="id") int userId) throws SQLException, URISyntaxException{
         dao.delete(userId);
     }
