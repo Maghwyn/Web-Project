@@ -34,8 +34,7 @@ const Opinions = ({props}) => {
 
   return (
     <div>
-      {/* {filterOpinions} */}
-      bonjour
+
     </div>
   );
 };

@@ -1,8 +1,7 @@
-import React, {useEffect, useState } from 'react';
+import React, {useEffect, useState, useCallback, useMemo} from 'react';
 import axios from 'axios';
 import PostArticle from './PostArticle';
 import Articles from './Articles';
-import CategoryArticles from './CategoryArticles';
 import TagCategory from './TagCategory';
 import Opinions from './Opinions';
 
@@ -14,7 +13,7 @@ const Fill = () => {
   //  URL FOR FETCHING ALL PUBLICATIONS 
   const url = "http://localhost:8080/api/v1/publications";
   const fetchPublications = async () => {
-    const response = await fetch(url, {
+    await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +21,7 @@ const Fill = () => {
       },
     })
       .then((res) => res.json()).then((resp) => {
-        // console.log(resp)
+        console.log(resp)
         setFetchArrayPublications(resp);
       });
   };
@@ -47,21 +46,28 @@ const Fill = () => {
 
   // CALL FUNCTIONS FETCHING IN USE EFFECT TO GET DATA
   useEffect(() => {
+    
+    
     fetchPublications();
     fetchCategoryTag();
-    // console.log("bonjour")
+    
   }, []);
   // -----------------------------
-  
+  const handleParentFun = useCallback(() => {
+    fetchPublications();
+    fetchCategoryTag();
+   console.log("Parent have passed :)")
 
-
+  }, []);
+   
+ 
   // MAPPING ALL PUBLICATIONS FROM THE FETCH
   const printPublicationsFetched = fetchArrayPublications.map((data, index) => {
-    // console.log(data);
     let like; 
     let review;
     let notLike;
     let count;
+    // console.log(data);
     if (data.notation === 1) {
       like = "like"
     }  
@@ -73,80 +79,60 @@ const Fill = () => {
     }
     // {data.notationPublicationId === data.publicationId ? count = count + 1 : null}
     // console.log(data);
-    return <div key={index}>
-      
+    return <div className="fill-container-content" key={index}>
       <ul>
-      <li>{data.publicationTitle}</li>
-        <li>{data.content}</li>
-        <li>{data.date}</li>
-        <li>{data.categoryName }</li>
-        <li>{data.firstName}</li>
-        <li>{like}{review}{notLike}</li>
+      <li><span className="title">{data.publicationTitle}</span></li>
+        <li><span>{data.content}</span></li>
+        <li><span>{data.date}</span></li>
+        <li><span>{data.categoryName }</span></li>
+        <li><span>{data.firstName}</span></li>
+        <li><span>{like}</span><span>{review}</span><span>{notLike}</span></li>
         </ul></div> 
   });
   // ----------------------------
 
-  const [user, setUser] = useState('');
-  const [userLastName, setUserLastName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userCanView, setUserCanView] = useState(0);
+
+  useEffect(() => {
+    // printPublicationsFetched();
+ }, []);
+  // useEffect(() => {
+  //   console.log("bonjour");
+
+  // }, [])
 
   // MAPPING ALL CATEGORIES TAGS FROM THE FETCH
   const printTagCategory = arrayCategoriesTag.map((data, index) => {
-    return <div key={index}  className={data.categoryName}>
+    return <div key={index} value={data.categoryName}  className={data.categoryName}>
       {data.categoryName}
     </div>
   } );
   // --------------------------
 
+  
 
 
   return (
     <>
     <div className="fill">
+      <div className="fill-postPublications">
+      <PostArticle   handleParentFun={()=>{
+               handleParentFun()}}/>
+      </div>
 
-      <div>{printPublicationsFetched}
-      <CategoryArticles value={printPublicationsFetched}/>
-      <Opinions props={printPublicationsFetched}/>
-      <PostArticle />
-      <Articles />
+      <div className="fill-container">
+        {printPublicationsFetched}
+        </div>
+    <div>
+      {/* <Opinions props={printPublicationsFetched}/> */}
+      
+      {/* <Articles /> */}
 
 
       
       </div>
 
-      <form
-      onSubmit={(e) => e.preventDefault()}>
-        <input type="text" name="firstName" value={user} onChange={(e) => setUser(e.target.value)} />
-        <input type="text" name="lastName" value={userLastName} onChange={(e) => setUserLastName(e.target.value)} />
-        <input type="text" name="email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
-        <input type="text" name="canView" value={userCanView} onChange={(e) => setUserCanView(e.target.value)} />
-        <button
-                id="sendText"
-                type="submit"
-                onClick={async () => {
-                  const response = await fetch("http://localhost:8080/api/v1/users", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({"firstName": user,
-                    "lastName" : userLastName,
-                    "email" : userEmail,
-                    "canView" : userCanView})
-                  })
-                    .then((res) => 
-                    res.json())
-                    .then(
-                      (resp) => console.log(resp)
-                    );
-                }}
-              >CLIck onSubmit</button>
-
-
-      </form>
       {/* PASSING DATA TO CHILD : TAGCATEGORY COMPONENT */}
-      {/* <TagCategory printTagCategory={printTagCategory}/> */}
+      <TagCategory printTagCategory={printTagCategory}/>
 
     </div> 
     </>
@@ -154,3 +140,54 @@ const Fill = () => {
 };
 
 export default Fill;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Form for creating user accounts
+// <form
+// onSubmit={(e) => e.preventDefault()}>
+//   <input type="text" name="firstName" value={user} onChange={(e) => setUser(e.target.value)} />
+//   <input type="text" name="lastName" value={userLastName} onChange={(e) => setUserLastName(e.target.value)} />
+//   <input type="text" name="email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
+//   <input type="text" name="canView" value={userCanView} onChange={(e) => setUserCanView(e.target.value)} />
+//   <button
+//           id="sendText"
+//           type="submit"
+//           onClick={async () => {
+//             const response = await fetch("http://localhost:8080/api/v1/users", {
+//               method: "POST",
+//               headers: {
+//                 "Content-Type": "application/json",
+//               },
+//               body: JSON.stringify({"firstName": user,
+//               "lastName" : userLastName,
+//               "email" : userEmail,
+//               "canView" : userCanView})
+//             })
+//               .then((res) => 
+//               res.json())
+//               .then(
+//                 (resp) => console.log(resp)
+//               );
+//           }}
+//         >CLIck onSubmit</button>
+
+
+// </form>
