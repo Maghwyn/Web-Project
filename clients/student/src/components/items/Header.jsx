@@ -2,7 +2,7 @@ import logo from "../../assets/img/Logo.png";
 import profilePicture from "../../assets/img/Profile-picture.png";
 import { Link } from "react-router-dom";
 
-const Header = () => (
+const Header = ({email}) => (
     <header className="header">
         <div className="header-logo">
             <Link className="logo-wrapper" to="/home">
@@ -18,7 +18,7 @@ const Header = () => (
             <ul>
                 <li><Link to="/ressource">Ressource</Link></li>
                 <li><Link to="/flux">Flux</Link></li>
-                <li><Link to="/cours">Cours</Link></li>
+                <li><Link to="/mes-cours">Cours</Link></li>
             </ul>
         </nav>
         <div className="header-search">
@@ -32,7 +32,7 @@ const Header = () => (
                 <img src={profilePicture} alt="user_pic"/>
             </div>
             <div className="user-name">
-                <span>example@edu.esiee-it.fr</span>
+                <span>{email}</span>
             </div>
         </div>
     </header>

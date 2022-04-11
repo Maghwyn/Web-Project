@@ -32,6 +32,12 @@ public class UserController {
         return dao.getUserById(userId);
     }
 
+    @GetMapping("g/{gid}")
+    public User getUserByGID(@PathVariable(value="gid") String userGID) throws SQLException, URISyntaxException{
+        System.out.println("NTM");
+        return dao.getUserByGID(userGID);
+    }
+
     @GetMapping("g/{gid}/{token}")
     public Boolean getUserByGID(@PathVariable(value="gid") String userGID, @PathVariable(value="token") String token) throws SQLException, URISyntaxException{
         if(!Objects.equals(token, "3KM0gO-at1nxoVfqb5W5E-HLEHrYH5BLiwpC-jNRlOd")) return null;

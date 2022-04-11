@@ -73,7 +73,8 @@ public class UserDAO {
                         u.setLastName(rs.getString("userlastname"));
                         u.setCanView(rs.getInt("canview"));
                         u.setEmail(rs.getString("useremail"));
-                        u.setUserGID(rs.getString("usergid"));
+
+                        System.out.println(u.getId());
                         return u;
                     }
                     return null;

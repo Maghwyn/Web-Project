@@ -23,7 +23,7 @@ const App = () => {
     return user === null ?
         <main className="auth" />
       :    user ?
-        <AuthenticatedApp/>
+        <AuthenticatedApp logged={user}/>
       :
         <UnauthenticatedApp/>
 }
