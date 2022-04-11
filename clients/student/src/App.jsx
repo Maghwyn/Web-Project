@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { isUserAuthentificated } from "./functions/functions";
+import { isUserAuthentificated } from "./functions/auth";
 
 const AuthenticatedApp = React.lazy(() => import('./auth/authenticatedApp'))
 const UnauthenticatedApp = React.lazy(() => import('./auth/unauthenticatedApp'))

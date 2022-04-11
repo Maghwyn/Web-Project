@@ -1,19 +1,19 @@
 import { BrowserRouter as Router, Routes as Switch, Route } from "react-router-dom";
 import Layout from "../components/Layout";
-import Home from "../views/Home";
-import "../assets/scss/packet.scss";
+import { get } from "../views/~index";
+// import "../assets/scss/packet.scss";
 
 const authenticatedApp = () => {
     return (
         <Router>
             <Layout>
                 <Switch>
-                    <Route path="/home" element={<Home/>}/>
-                    <Route path="/ressource" element={<Home/>}/>
-                    <Route path="/flux" element={<Home/>}/>
-                    <Route path="/mes-cours" element={<Home/>}/>
-                    <Route path="/contact" element={<Home/>}/>
-                    <Route path="*" element={<Home/>}/>
+                    <Route path="/home"      element={<get.Home/>}/>
+                    <Route path="/ressource" element={<get.Ressources/>}/>
+                    <Route path="/flux"      element={<get.Flux/>}/>
+                    <Route path="/mes-cours" element={<get.Classes/>}/>
+                    <Route path="/contact"   element={<get.Contact/>}/>
+                    <Route path="*"          element={<get.Error/>}/>
                 </Switch>
             </Layout>
         </Router>
