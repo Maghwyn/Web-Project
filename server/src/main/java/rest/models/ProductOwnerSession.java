@@ -1,20 +1,20 @@
 package rest.models;
 
 public class ProductOwnerSession {
-    private int productOwnerSID;
-    private int productOwnerId;
+    private String productOwnerSID;
+    private String productOwnerGID;
 
-    public int getProductOwnerSID() {
+    public String getProductOwnerSID() {
         return productOwnerSID;
     }
-    public int getProductOwnerId() {
-        return productOwnerId;
+    public String getProductOwnerGID() {
+        return productOwnerGID;
     }
 
-    public void setProductOwnerSID(int productOwnerSID) {
+    public void setProductOwnerSID(String productOwnerSID) {
         this.productOwnerSID = productOwnerSID;
     }
-    public void setProductOwnerId(int productOwnerId) {
-        this.productOwnerId = productOwnerId;
+    public void setProductOwnerGID(String productOwnerGID) {
+        this.productOwnerGID = productOwnerGID;
     }
 }

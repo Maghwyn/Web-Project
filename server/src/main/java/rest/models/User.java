@@ -6,6 +6,7 @@ public class User {
     private String lastName;
     private int canView;
     private String email;
+    private String userGID;
 
     public int getId() {
         return id;
@@ -22,6 +23,9 @@ public class User {
     public String getEmail() {
         return email;
     }
+    public String getUserGID() {
+        return userGID;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -37,5 +41,8 @@ public class User {
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+    public void setUserGID(String userGID) {
+        this.userGID = userGID;
     }
 }

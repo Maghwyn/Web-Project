@@ -3,6 +3,7 @@ package rest.app.controllers;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.web.bind.annotation.*;
 import rest.models.User;
@@ -24,8 +25,20 @@ public class UserController {
         return dao.getUserById(userId);
     }
 
+    @GetMapping("g/{gid}")
+    public User getUserByGID(@PathVariable(value="gid") String userGID) throws SQLException, URISyntaxException{
+        System.out.println("NTM");
+        return dao.getUserByGID(userGID);
+    }
+
+    @GetMapping("g/{gid}/{token}")
+    public Boolean getUserByGID(@PathVariable(value="gid") String userGID, @PathVariable(value="token") String token) throws SQLException, URISyntaxException{
+        if(!Objects.equals(token, "3KM0gO-at1nxoVfqb5W5E-HLEHrYH5BLiwpC-jNRlOd")) return null;
+        return dao.getUserByGID(userGID) != null;
+    }
+
     @PostMapping("")
-    public void createUser(@RequestBody User user) throws SQLException, URISyntaxException{
+    public void createUser(@RequestBody User user) throws SQLException, URISyntaxException {
         dao.add(user);
     }
 

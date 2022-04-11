@@ -5,6 +5,7 @@ public class ProductOwner {
     private String firstName;
     private String lastName;
     private String email;
+    private String poGID;
 
     public int getId() {
         return id;
@@ -18,6 +19,9 @@ public class ProductOwner {
     public String getEmail() {
         return email;
     }
+    public String getPoGID() {
+        return poGID;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -30,5 +34,8 @@ public class ProductOwner {
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+    public void setPoGID(String poGID) {
+        this.poGID = poGID;
     }
 }
