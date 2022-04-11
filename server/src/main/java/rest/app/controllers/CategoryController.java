@@ -4,18 +4,11 @@ import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.*;
 import rest.models.Category;
 import rest.services.CategoryDAO;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("api/v1/category")
 public class CategoryController {
@@ -26,14 +19,19 @@ public class CategoryController {
         return dao.getCategories();
     }
 
+    @GetMapping("/name/{categoryName}")
+    public Category getCategoryByName(@PathVariable(value = "categoryName") String categoryName) throws SQLException, URISyntaxException {
+        return dao.getCategoryByName(categoryName);
+    }
+
     @GetMapping("{cid}")
-    public Category getCategoryById(@PathVariable(value="uid") int categoryId) throws SQLException, URISyntaxException{
+    public Category getCategoryById(@PathVariable(value="cid") int categoryId) throws SQLException, URISyntaxException{
         return dao.getCategoryById(categoryId);
     }
 
     @PostMapping("")
     public void createCategory(@RequestBody Category category) throws SQLException, URISyntaxException{
-        dao.add(category);
+        dao.createCategory(category);
     }
 
     @PutMapping("{cid}")

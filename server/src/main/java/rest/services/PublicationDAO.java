@@ -57,6 +57,7 @@ public class PublicationDAO {
                     while (rs.next()) {
                         Publication p = new Publication();
                         p.setCategoryName(rs.getString("categoryName"));
+//                        p.setCategoryId(rs.getInt("categoryId"));
                         list.add(p);
                     }
                     return list;

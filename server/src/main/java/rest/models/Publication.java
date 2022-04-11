@@ -9,6 +9,12 @@ public class Publication {
     private String date;
     private int notation;
     private int notationPublicationId;
+    //
+    // FROM USER FOR LIST IN REQUEST PUBLICATIONS
+    private String firstName;
+    //
+    // FROM CATEGORY FOR LIST IN REQUEST PUBLICATIONS
+    private String categoryName;
 
     public int getNotationPublicationId() {
         return notationPublicationId;
@@ -27,12 +33,7 @@ public class Publication {
         this.notation = notation;
     }
 
-    //
-    // FROM USER FOR LIST IN REQUEST PUBLICATIONS
-    private String firstName;
-    //
-    // FROM CATEGORY FOR LIST IN REQUEST PUBLICATIONS
-    private String categoryName;
+
 
     public String getCategoryName() {
         return categoryName;

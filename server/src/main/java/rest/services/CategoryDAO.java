@@ -50,8 +50,26 @@ public class CategoryDAO {
             }
         }
     }
+    public Category getCategoryByName(String categoryName) throws SQLException, URISyntaxException {
+        try (Connection co = connection.get()) {
+            String sql = "SELECT categoryName, categoryId FROM categories WHERE categoryName= ?;";
+            try (PreparedStatement st = co.prepareStatement(sql)) {
+                st.setString(1, categoryName);
+                try (ResultSet rs = st.executeQuery()) {
+                    if (rs.next()) {
+                        Category c = new Category();
+                        c.setCategoryName(rs.getString("categoryName"));
+                        c.setCategoryId(rs.getInt("categoryId"));
+                        return c;
+                    }
+                    return null;
+                }
+            }
 
-    public void add(Category category) throws SQLException, URISyntaxException {
+        }
+    }
+
+    public void createCategory(Category category) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
             String sql = "INSERT INTO categories (categoryname) VALUES(?);";
             try (PreparedStatement st = co.prepareStatement(sql)) {

@@ -11,16 +11,20 @@ const TagCategory = ({printTagCategory}) => {
   useEffect(() => {
     if (Once === false) {
     for (let i = 0; i < printTagCategory.length; i++) {
-      setCategory(category => [...category, printTagCategory[i].props.children]);
+      console.log(printTagCategory[i].props.value);
+      setCategory(category => [...category, printTagCategory[i].props.value]);
+      console.log("bonjour");
       setOnce(true);}
     }
     else {
-      // console.log("already done");
+      console.log("already done");
     }
   }, [Once , printTagCategory]);
 
-  const refresh = useCallback((event) => {
+  const refreshOne = useCallback((event) => {
+    console.log(event);
     let category = event.target.innerText;
+    // console.log("jjjejazhejazehaz");
     // console.log(event.target.innerText);
     const GetArticlesCategory = async () => {
       const response = await fetch(`http://localhost:8080/api/v1/publications/${category}`, {
@@ -38,6 +42,7 @@ const TagCategory = ({printTagCategory}) => {
 
     }
   );
+
       const tagArray =  arrayCategory.map((data, index) => {
         return <div key={index}>
           <ul>
@@ -49,16 +54,19 @@ const TagCategory = ({printTagCategory}) => {
             </ul></div>
             });
 
-  const returnAllCategoryTag = category.map((data, index) => {
-    return <div key={index} value={data} className={data}>
-      <button onClick={refresh} >{data}</button>
-        </div> 
-  })
+
+      const returnAllCategoryTag = category.map((data, index) => {
+        return <div key={index} value={data} className={data}>
+          <button onClick={refreshOne} >{data}</button>
+            </div> 
+      });
+
+
 
 
   return (
     <>
-    <div >
+    <div>
       {returnAllCategoryTag}
       {tagArray}
     </div>

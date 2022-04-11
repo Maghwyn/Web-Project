@@ -86,18 +86,20 @@ const Fill = () => {
   });
   // ----------------------------
 
+  const [user, setUser] = useState('');
+  const [userLastName, setUserLastName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userCanView, setUserCanView] = useState(0);
+
   // MAPPING ALL CATEGORIES TAGS FROM THE FETCH
   const printTagCategory = arrayCategoriesTag.map((data, index) => {
-    return <div key={index} value={data.categoryName} className={data.categoryName}>
+    return <div key={index}  className={data.categoryName}>
       {data.categoryName}
     </div>
   } );
   // --------------------------
 
-  const [user, setUser] = useState('');
-  const [userLastName, setUserLastName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userCanView, setUserCanView] = useState(0);
+
 
   return (
     <>
@@ -110,8 +112,7 @@ const Fill = () => {
       <Articles />
 
 
-      {/* PASSING DATA TO CHILD : TAGCATEGORY COMPONENT */}
-      <TagCategory printTagCategory={printTagCategory}/>
+      
       </div>
 
       <form
@@ -144,6 +145,8 @@ const Fill = () => {
 
 
       </form>
+      {/* PASSING DATA TO CHILD : TAGCATEGORY COMPONENT */}
+      {/* <TagCategory printTagCategory={printTagCategory}/> */}
 
     </div> 
     </>
