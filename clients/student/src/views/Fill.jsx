@@ -32,7 +32,7 @@ const Fill = ({info}) => {
   //  URL FOR FETCHING ALL CATEGORIES IN ALL PUBLICATIONS
   const urlTag = "http://localhost:8080/api/v1/publications/categoryTagName";
   const fetchCategoryTag = async () => {
-    const responseTag = await fetch(urlTag, {
+    await fetch(urlTag, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -58,6 +58,26 @@ const Fill = ({info}) => {
     fetchCategoryTag();
       //  console.log("Parent have passed :)")
   };
+
+  const fillPrinted = (event) => {
+  let category = event.target.innerText;
+  const GetArticlesCategory = async () => {
+    await fetch(`http://localhost:8080/api/v1/publications/${category}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : '*'
+      },
+    })
+      .then((res) => res.json()).then((resp) => {
+        // setArrayCategory(resp);
+        setFetchArrayPublications(resp);
+      });
+    } 
+    GetArticlesCategory();
+
+  }
+    
  
    
  
@@ -89,21 +109,14 @@ const Fill = ({info}) => {
   });
   // ----------------------------
 
-  const printPublicationsFetchedTest = fetchArrayPublications.map((data, index) => {
-    // console.log(data);
-    return { data : data }
-  });
-  
 
-//   useEffect(() => {
+  // DOESN T WORK YET 
+  // const printPublicationsFetchedTest = fetchArrayPublications.map((data, index) => {
+  //   // console.log(data);
+  //   return { data }
+  // });
+  // ------------------
 
-
-//     // printPublicationsFetched();
-//  }, []);
-  // useEffect(() => {
-  //   console.log("bonjour");
-
-  // }, [])
 
   // MAPPING ALL CATEGORIES TAGS FROM THE FETCH
   const printTagCategory = arrayCategoriesTag.map((data, index) => {
@@ -113,12 +126,24 @@ const Fill = ({info}) => {
   } );
   // --------------------------
 
+
+  
+
+  
+  
+
   
 
 
   return (
     <>
     <div className="fill">
+      <div className="fill-tagCategory">
+      {/* PASSING DATA TO CHILD : TAGCATEGORY COMPONENT */}
+      <TagCategory fillPrinted={(e) => {
+        fillPrinted(e);
+      }} printTagCategory={printTagCategory}/>
+      </div>
       <div className="fill-postPublications">
       <PostArticle userId={userId}  handleParentPublication={() => { 
           handleParentPublication();
@@ -126,18 +151,18 @@ const Fill = ({info}) => {
       </div>
 
       <div className="fill-container">
-        {/* {printPublicationsFetched} */}
+        {printPublicationsFetched}
+        
         </div>
     <div>
-      <Opinions props={printPublicationsFetched}/>
+      {/* <Opinions props={printPublicationsFetched}/> */}
       
-      <Articles  value={printPublicationsFetchedTest} />
+      {/* <Articles  value={printPublicationsFetchedTest} /> */}
 
       
       </div>
 
-      {/* PASSING DATA TO CHILD : TAGCATEGORY COMPONENT */}
-      <TagCategory printTagCategory={printTagCategory}/>
+      
 
     </div> 
     </>

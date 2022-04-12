@@ -2,13 +2,38 @@ import React from 'react';
 
 const Articles = (props) => {
   // console.log(key, elements);
-  // console.log(props);
-  const printPublications = [props];
+  // console.log(props.value);
+  // const printPublications = [props.value];
+  // console.log(printPublications);
   // console.log(printPublications);
 
 
-  // const printPublicationsFetched = printPublications.map((data, index) => {
-  //   // console.log(index, data);
+
+
+
+  // const printPublicationsFetched = printPublications.map((arrayItem, arrayItemIndex, wholeArray ) => {
+  //   // console.log(data.typeOf());
+  //   console.log(arrayItem);
+  //   console.log(arrayItemIndex);
+  //   console.log(wholeArray);
+
+  // });
+
+  
+
+    // console.log(index);
+    // console.log(data.index);
+  //   {/* return (<div className="fill-container-content" key={index}>
+  //      <ul>
+  //    <li><span className="title">{data.publicationTitle}</span></li>
+  //        <li><span>{data.content}</span></li>
+  //        <li><span>{data.date}</span></li>
+  //        <li><span>{data.categoryName }</span></li>
+  //        <li><span>{data.firstName}</span></li>
+  //        {/* <li><span>{like}</span><span>{review}</span><span>{notLike}</span></li> */}
+  //       {/* </ul></div> ) */}
+  // {/* // }); */}
+  // console.log(printPublicationsFetched)
   //   // console.log(data.value[index]);
   //   console.log("bonjouuuur")
   //   let like; 
