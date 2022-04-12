@@ -1,10 +1,10 @@
 import Home from "./Home";
-import Flux from "./Flux";
+import Fill from "./Fill";
 import Ressources from "./Ressources";
 import Classes from "./Classes";
 import Contact from "./Contact";
 import Error from "./Error";
 
 export const get = {
-    Home, Flux, Ressources, Classes, Contact, Error
+    Home, Fill, Ressources, Classes, Contact, Error
 }

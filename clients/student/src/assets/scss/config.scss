@@ -28,7 +28,7 @@ body {
             align-items: center;
             flex-direction: column;
             position: relative;
-            overflow: hidden;
+            // overflow: hidden; // NO SCROLL HERE 
 
             &-content {
                 flex-grow: 1;

@@ -17,7 +17,7 @@ const Header = ({email}) => (
         <nav className="header-nav">
             <ul>
                 <li><Link to="/ressource">Ressource</Link></li>
-                <li><Link to="/flux">Flux</Link></li>
+                <li><Link to="/fill">Flux</Link></li>
                 <li><Link to="/mes-cours">Cours</Link></li>
             </ul>
         </nav>

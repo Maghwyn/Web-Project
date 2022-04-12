@@ -24,8 +24,8 @@ const RenderApp = ({logged}) => {
             <Layout email={user.email}>
                 <Switch>
                     <Route path="/home"      element={<get.Home/>}/>
-                    <Route path="/ressource" element={<get.Ressources/>}/>
-                    <Route path="/flux"      element={<get.Flux/>}/>
+                    <Route path="/ressource" element={<get.Ressources />}/>
+                    <Route path="/fill"      element={<get.Fill info={user}/>}/>
                     <Route path="/mes-cours" element={<get.Classes info={user}/>}/>
                     <Route path="/contact"   element={<get.Contact/>}/>
                     <Route path="*"          element={<get.Error/>}/>
