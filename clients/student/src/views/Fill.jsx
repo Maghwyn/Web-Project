@@ -5,10 +5,14 @@ import TagCategory from '../components/fill/TagCategory';
 import Opinions from '../components/fill/Opinions';
 import Articles from '../components/fill/Articles';
 
-const Fill = ({info}) => {
+const Fill = ({info, publications, foundPublication}) => {
   const [fetchArrayPublications, setFetchArrayPublications] = useState([]);
   const [arrayCategoriesTag, setArrayCategoriesTag] = useState([]);
   const userId = info.id
+  
+  const searchOkay = foundPublication;
+  
+  
   // console.log({info})
   // console.log(userId)
 
@@ -47,15 +51,19 @@ const Fill = ({info}) => {
   // END OF FETCHING CATEGORIES ----------------
 
   // CALL FUNCTIONS FETCHING IN USE EFFECT TO GET DATA
-  useEffect(() => {
-    fetchPublications();
-    fetchCategoryTag();
+  useEffect(() => { (async () => {
+    await fetchPublications();
+    await fetchCategoryTag();
+  })()
+    
+    
   }, []);
   // -----------------------------
 
-  const handleParentPublication = () => {
-    fetchPublications();
-    fetchCategoryTag();
+  const handleParentPublication = async () => {
+      await fetchPublications();
+      await fetchCategoryTag();
+    
       //  console.log("Parent have passed :)")
   };
 
@@ -77,36 +85,54 @@ const Fill = ({info}) => {
     GetArticlesCategory();
 
   }
-    
- 
-   
- 
+  
+  // MAPPING ALL PUBLICATIONS FROM THE SEARCH NAV BAR
+    const renderResearch = () => {
+      return (
+              foundPublication.map((data, index) => (
+                  <div key={index}  className="fill-container-content">
+                <ul>
+          <li><span className="title">{data.publicationTitle}</span></li>
+            <li><span>{data.content}</span></li>
+            <li><span>{data.date}</span></li>
+            <li><span>{data.categoryName }</span></li>
+            <li><span>{data.firstName}</span></li>
+            {/* <li><span>{like}</span><span>{review}</span><span>{notLike}</span></li> */}
+            </ul></div> 
+              )
+              )
+  
+      )
+  }
+
   // MAPPING ALL PUBLICATIONS FROM THE FETCH
-  const printPublicationsFetched = fetchArrayPublications.map((data, index) => {
-    let like; 
-    let review;
-    let notLike;
-    let count;
-    // console.log(data);
-    if (data.notation === 1) {
-      like = "like"
-    }  
-    if (data.notation === 2){
-      review = "review";
-    }
-    if (data.notation === 3) {
-      notLike = "not like"
-    }
-    return (<div className="fill-container-content" key={index}>
-      <ul>
-      <li><span className="title">{data.publicationTitle}</span></li>
-        <li><span>{data.content}</span></li>
-        <li><span>{data.date}</span></li>
-        <li><span>{data.categoryName }</span></li>
-        <li><span>{data.firstName}</span></li>
-        <li><span>{like}</span><span>{review}</span><span>{notLike}</span></li>
-        </ul></div> )
-  });
+    const printPublicationsFetched = 
+    fetchArrayPublications.map((data, index) => {
+      // fetchArrayPublications.map((data, index) => {
+        let like; 
+        let review;
+        let notLike;
+        let count;
+        // console.log(data);
+        if (data.notation === 1) {
+          like = "like"
+        }  
+        if (data.notation === 2){
+          review = "review";
+        }
+        if (data.notation === 3) {
+          notLike = "not like"
+        }
+        return (<div className="fill-container-content" key={index}>
+          <ul>
+          <li><span className="title">{data.publicationTitle}</span></li>
+            <li><span>{data.content}</span></li>
+            <li><span>{data.date}</span></li>
+            <li><span>{data.categoryName }</span></li>
+            <li><span>{data.firstName}</span></li>
+            <li><span>{like}</span><span>{review}</span><span>{notLike}</span></li>
+            </ul></div> )
+      });
   // ----------------------------
 
 
@@ -127,13 +153,6 @@ const Fill = ({info}) => {
   // --------------------------
 
 
-  
-
-  
-  
-
-  
-
 
   return (
     <>
@@ -144,15 +163,21 @@ const Fill = ({info}) => {
         fillPrinted(e);
       }} printTagCategory={printTagCategory}/>
       </div>
+      {searchOkay.length > 0 ? 
+        null : 
       <div className="fill-postPublications">
       <PostArticle userId={userId}  handleParentPublication={() => { 
           handleParentPublication();
       }}/>
       </div>
+      }
 
       <div className="fill-container">
-        {printPublicationsFetched}
-        
+        {/* RENDERING TEMPLATE FOR RESEARCH NAVBAR */}
+        {searchOkay.length > 0 ? 
+        renderResearch() : (printPublicationsFetched)
+        }
+
         </div>
     <div>
       {/* <Opinions props={printPublicationsFetched}/> */}
