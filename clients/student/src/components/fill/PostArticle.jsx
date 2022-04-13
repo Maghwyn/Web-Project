@@ -13,7 +13,7 @@ const PostArticle = (props) => {
   let content = document.getElementById("content");
   let categoryId = document.getElementById("categoryId");
 
-  const validForm = (e) => {
+  const validForm = () => {
     if (
       (publicationTitle.value !== "") &&
       (content.value !== "") &&
@@ -117,7 +117,7 @@ const PostArticle = (props) => {
             value={titlePublication}
             onChange={(e) => {
               setTitlePublication(e.target.value);
-              validForm(e);
+              validForm();
             }}
           />
         </div>
@@ -130,7 +130,7 @@ const PostArticle = (props) => {
             value={contentPublication}
             onChange={(e) => {
               setContentPublication(e.target.value);
-              validForm(e);
+              validForm();
             }}
           />
         </div>
@@ -143,7 +143,7 @@ const PostArticle = (props) => {
             value={categoryName}
             onChange={(e) => {
               setCategoryName(e.target.value);
-              validForm(e);
+              validForm();
             }}
           />
         </div>

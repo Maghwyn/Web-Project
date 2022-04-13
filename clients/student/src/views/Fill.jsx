@@ -118,7 +118,8 @@ const Fill = ({info, publications, foundPublication}) => {
 
       <div className="fill-container">
         {/* RENDERING TEMPLATE FOR RESEARCH NAVBAR */}
-        <Articles foundPublication={foundPublication} fetchArrayPublications={fetchArrayPublications} />
+        <Articles fetchPublications={fetchPublications} foundPublication={foundPublication} fetchArrayPublications={fetchArrayPublications}  handleParentPublication={() => { 
+          handleParentPublication()}}/>
 
         </div>
     <div>

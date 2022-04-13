@@ -10,8 +10,8 @@ const Header = ({email, publications, setFoundPublication}) => {
 
   const filtering = (e) => {
     let keyword = e.target.value;
-    console.log(keyword);
-    console.log(publications);
+    // console.log(keyword);
+    // console.log(publications);
 
     if (keyword !== '') {
         setResearch(true)

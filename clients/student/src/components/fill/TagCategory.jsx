@@ -14,7 +14,7 @@ const TagCategory = ( props) => {
     for (let i = 0; i < printTagCategory.length; i++) {
       // console.log(printTagCategory[i].props.value);
       setCategory(category => [...category, printTagCategory[i].props.value]);
-      console.log("bonjour");
+      // console.log("bonjour");
       setOnce(true);}
     }
     else {
