@@ -26,6 +26,11 @@ public class HasAccessController {
         return dao.getAllAccess();
     }
 
+    @GetMapping("users/{uid}")
+    public List<HasAccess> getAllAccessByUserId(@PathVariable(value="uid") int userId) throws SQLException, URISyntaxException{
+        return dao.getAllAccessByUserId(userId);
+    }
+
     @GetMapping("users/{uid}/classes/{cid}")
     public HasAccess getSpecificAccessByIds(@PathVariable(value="uid") int userId, @PathVariable(value="cid") int classId) throws SQLException, URISyntaxException{
         return dao.getSpecificAccessByIds(userId, classId);

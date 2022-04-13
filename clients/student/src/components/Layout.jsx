@@ -1,10 +1,7 @@
 import Header from "./items/Header";
 import Footer from "./items/Footer";
 
-const Layout = ({children, email}) => {
-
-        console.log(email)
-    return (
+const Layout = ({children, email}) => (
     <div className="view" id="root-content">
         <Header email={email}/>
         <div className="view-content">
@@ -12,6 +9,6 @@ const Layout = ({children, email}) => {
         </div>
         <Footer/>
     </div>
-    )
-    }
+)
+
 export default Layout;

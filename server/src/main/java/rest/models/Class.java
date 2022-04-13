@@ -5,6 +5,8 @@ public class Class {
     private int productOwnerId;
     private String className;
     private String date;
+    private String productOwnerFirstName;
+    private String productOwnerLastName;
 
     public int getClassId() {
         return classId;
@@ -18,6 +20,12 @@ public class Class {
     public String getDate() {
         return date;
     }
+    public String getProductOwnerFirstName() {
+        return productOwnerFirstName;
+    }
+    public String getProductOwnerLastName() {
+        return productOwnerLastName;
+    }
 
     public void setClassId(int classId) {
         this.classId = classId;
@@ -30,5 +38,11 @@ public class Class {
     }
     public void setDate(String date) {
         this.date = date;
+    }
+    public void setProductOwnerFirstName(String productOwnerFirstName) {
+        this.productOwnerFirstName = productOwnerFirstName;
+    }
+    public void setProductOwnerLastName(String productOwnerLastName) {
+        this.productOwnerLastName = productOwnerLastName;
     }
 }

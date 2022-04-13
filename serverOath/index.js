@@ -5,7 +5,7 @@ import sessions from "express-session";
 import passport from "passport";
 import auth from "./routes/auth.js";
 import config from "./config/passport.js";
-dotenv.config()
+dotenv.config();
 config(passport);
 
 const PORT = process.env.PORT;
