@@ -32,28 +32,6 @@ const Header = ({email, publications, setFoundPublication}) => {
   };
 
 
-//   const renderResearch = () => {
-//       return (
-//         fieldResult === true ? 
-//             foundPublication && foundPublication.length > 0 ? (
-//               foundPublication.map((data, index) => (
-//                   <div key={index}>
-//                 <ul>
-//           <li><span className="title">{data.publicationTitle}</span></li>
-//             <li><span>{data.content}</span></li>
-//             <li><span>{data.date}</span></li>
-//             <li><span>{data.categoryName }</span></li>
-//             <li><span>{data.firstName}</span></li>
-//             {/* <li><span>{like}</span><span>{review}</span><span>{notLike}</span></li> */}
-//             </ul></div> 
-//               ))
-//             ) : research === true ?(
-//               <h1>No results found!</h1>
-//             ) : null : null
-//       )
-//   }
-
-
 return (
     <header className="header">
         <div className="header-logo">
@@ -74,9 +52,9 @@ return (
             </ul>
         </nav>
         <div className="header-search">
-            <form className="search-form">
+            <form className="search-form" onSubmit={(e) => e.preventDefault()}>
                 <input className="search-bar" value={publicationName} onChange={(e) => filtering(e)} placeholder="Faire une recherche.." required></input>
-                <input className="search-submit" type="submit" value="GO" href="#"></input>
+                <input className="search-submit" type="submit" value="GO"></input>
             </form>
         </div>
         <div className="header-user">

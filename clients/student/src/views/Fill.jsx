@@ -86,62 +86,6 @@ const Fill = ({info, publications, foundPublication}) => {
 
   }
   
-  // MAPPING ALL PUBLICATIONS FROM THE SEARCH NAV BAR
-    const renderResearch = () => {
-      return (
-              foundPublication.map((data, index) => (
-                  <div key={index}  className="fill-container-content">
-                <ul>
-          <li><span className="title">{data.publicationTitle}</span></li>
-            <li><span>{data.content}</span></li>
-            <li><span>{data.date}</span></li>
-            <li><span>{data.categoryName }</span></li>
-            <li><span>{data.firstName}</span></li>
-            {/* <li><span>{like}</span><span>{review}</span><span>{notLike}</span></li> */}
-            </ul></div> 
-              )
-              )
-  
-      )
-  }
-
-  // MAPPING ALL PUBLICATIONS FROM THE FETCH
-    const printPublicationsFetched = 
-    fetchArrayPublications.map((data, index) => {
-      // fetchArrayPublications.map((data, index) => {
-        let like; 
-        let review;
-        let notLike;
-        let count;
-        // console.log(data);
-        if (data.notation === 1) {
-          like = "like"
-        }  
-        if (data.notation === 2){
-          review = "review";
-        }
-        if (data.notation === 3) {
-          notLike = "not like"
-        }
-        return (<div className="fill-container-content" key={index}>
-          <ul>
-          <li><span className="title">{data.publicationTitle}</span></li>
-            <li><span>{data.content}</span></li>
-            <li><span>{data.date}</span></li>
-            <li><span>{data.categoryName }</span></li>
-            <li><span>{data.firstName}</span></li>
-            <li><span>{like}</span><span>{review}</span><span>{notLike}</span></li>
-            </ul></div> )
-      });
-  // ----------------------------
-
-
-  // DOESN T WORK YET 
-  // const printPublicationsFetchedTest = fetchArrayPublications.map((data, index) => {
-  //   // console.log(data);
-  //   return { data }
-  // });
-  // ------------------
 
 
   // MAPPING ALL CATEGORIES TAGS FROM THE FETCH
@@ -174,15 +118,13 @@ const Fill = ({info, publications, foundPublication}) => {
 
       <div className="fill-container">
         {/* RENDERING TEMPLATE FOR RESEARCH NAVBAR */}
-        {searchOkay.length > 0 ? 
-        renderResearch() : (printPublicationsFetched)
-        }
+        <Articles foundPublication={foundPublication} fetchArrayPublications={fetchArrayPublications} />
 
         </div>
     <div>
       {/* <Opinions props={printPublicationsFetched}/> */}
       
-      {/* <Articles  value={printPublicationsFetchedTest} /> */}
+      
 
       
       </div>
