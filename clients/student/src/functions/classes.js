@@ -18,6 +18,8 @@ export async function getClassesAccess(userID) {
         })
     })
 
+    console.log(hasAccesTo)
+
     return hasAccesTo;
 }
 

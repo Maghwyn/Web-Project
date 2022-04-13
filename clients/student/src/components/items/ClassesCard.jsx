@@ -1,7 +1,7 @@
 import { fetchImages } from "../../functions/utils";
 
 const ClassesCard = ({classes, event}) => (
-    classes.map(el => {
+    classes && classes.map(el => {
         const img = fetchImages(`${el.className}.png`);
         return (
             <div className="card-classes" key={el.classId} onClick={() => {event(img, el)}}>
