@@ -7,6 +7,7 @@ const Classes = ({user}) => {
     const [classes, setClasses] = useState(false);
     const [cardState, setCardState] = useState(false);
     const loading = useRef(true);
+    const data = useRef("");
 
     useEffect(() => {
         if(loading.current && user.id !== null) {
@@ -19,8 +20,13 @@ const Classes = ({user}) => {
         }
     }, [user.id])
 
-    const openCard = () => {
+    const openCard = (img, el) => {
+        data.current = {image: img, user: el};
         setCardState(preVal => preVal = true);
+    }
+
+    const closeCard = () => {
+        setCardState(preVal => preVal = false);
     }
 
     return (
@@ -36,7 +42,7 @@ const Classes = ({user}) => {
                 !cardState ? 
                     !loading.current && <ClassesCard classes={classes} event={openCard}/>
                   :
-                    !loading.current && <ClassesCardOpen />
+                    !loading.current && <ClassesCardOpen data={data.current} event={closeCard}/>
             }
             </div>
         </main>

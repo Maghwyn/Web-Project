@@ -2,9 +2,9 @@ import { fetchImages } from "../../functions/utils";
 
 const ClassesCard = ({classes, event}) => (
     classes.map(el => {
-        const img = fetchImages(`${el.className}.png`)
+        const img = fetchImages(`${el.className}.png`);
         return (
-            <div className="card-classes" key={el.classId} onClick={event}>
+            <div className="card-classes" key={el.classId} onClick={() => {event(img, el)}}>
                 <div className="card-classes-name">
                     <span className="info-name">{el.className.toUpperCase()}</span>
                 </div>
