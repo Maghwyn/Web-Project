@@ -16,7 +16,7 @@ public class ClassContentDAO {
 
     public List<ClassContent> getContentByClassId(int cid) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "SELECT * FROM classescontent WHERE classid=?;";
+            String sql = "SELECT * FROM classescontent WHERE classid=? ORDER BY classcontentid asc;";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setInt(1, cid);
                 try (ResultSet rs = st.executeQuery()) {
@@ -49,12 +49,13 @@ public class ClassContentDAO {
         }
     }
 
-    public void update(int cid, ClassContent content) throws SQLException, URISyntaxException {
+    public void update(int cid, String name, ClassContent content) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "UPDATE classescontent SET contentname=? WHERE classid=?;";
+            String sql = "UPDATE classescontent SET contentname=? WHERE classid=? and contentname=?;";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setString(1, content.getContentName());
                 st.setInt(2, cid);
+                st.setString(3, name);
                 st.execute();
             }
         }

@@ -42,3 +42,11 @@ export async function deleteClassesContent(classId, contentName) {
     .then(res => res.status)
     .catch((err) => console.log(err));
 }
+
+export async function updateClassesContent(classId, contentName, newValue) {
+    const status = await axios.put(`http://localhost:8080/api/v1/content/classes/${classId}/${contentName}`, {contentName: newValue})
+    .then(res => res.status)
+    .catch((err) => err.reponse.status);
+
+    return status;
+}

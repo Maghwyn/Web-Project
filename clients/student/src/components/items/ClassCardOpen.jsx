@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { fetchImages } from "../../functions/utils";
 import ContentCard from "./ContentCard";
-import { deleteClassesContent, getClassesContent, postClassesContent } from "../../functions/classes";
+import { deleteClassesContent, getClassesContent, postClassesContent, updateClassesContent } from "../../functions/classes";
 
 const ClassesCardOpen = ({data, event}) => {
     const [files, setFiles] = useState([]);
@@ -33,9 +33,37 @@ const ClassesCardOpen = ({data, event}) => {
             if(element.contentName !== data.contentName && element.contentCategory === 2) newData.push(element);
         })
 
-        console.log(newData);
-
         setFiles(preArray => preArray = newData);
+    }
+
+    const editFile = async (e, allFiles, data, ext, newData = []) => {
+        const card = e.target.closest(".content-card-wrapper");
+        const input = e.target.closest(".content-card-option").previousSibling.childNodes[0];
+        const newValue = `${input.value}${ext}`;
+
+        console.log(newValue + " : " + data.contentName)
+        if(newValue === data.contentName) return card.classList.remove("flip");
+        if(newValue === "") return;
+
+        const status = await updateClassesContent(data.classId, data.contentName, newValue);
+        
+        if(status === 200) {
+            allFiles.forEach(element => {
+                if(element.contentName !== data.contentName && element.contentCategory === 1) newData.push(element);
+                else if(element.contentName !== data.contentName && element.contentCategory === 2) newData.push(element);
+                else {
+                    const {classId, contentCategory, contentBlob} = element;
+                    newData.push({classId: classId, contentCategory: contentCategory, contentName: newValue, contentBlob: contentBlob})
+                }
+            })
+
+            setFiles(preArray => preArray = newData);
+            card.classList.remove("flip");
+        }
+    }
+
+    const flipFile = (e) => {
+        e.target.closest(".content-card-wrapper").classList.add("flip");
     }
 
     useEffect(() => {
@@ -77,7 +105,7 @@ const ClassesCardOpen = ({data, event}) => {
                             <span>Contenu du cours</span>
                         </div>
                         <div className="coc-course-content-cards">
-                            {!loading.current && <ContentCard content={files} cat={1} delEvent={deleteFile}/>}
+                            {!loading.current && <ContentCard content={files} cat={1} delEvent={deleteFile} flip={flipFile} editEvent={editFile}/>}
                             <div className="add-card">
                                 <input id="fc-content" className="add-card-submit" type="file" accept=".jpg, .jpeg, .png, .webp, .pdf, .zip" 
                                     onChange={(e) => { getImage(1,e) }}/>
@@ -93,7 +121,7 @@ const ClassesCardOpen = ({data, event}) => {
                             <span>Ressources</span>
                         </div>
                         <div className="coc-course-ressource-cards">
-                            {!loading.current && <ContentCard content={files} cat={2} delEvent={deleteFile}/>}
+                            {!loading.current && <ContentCard content={files} cat={2} delEvent={deleteFile} flip={flipFile} editEvent={editFile}/>}
                             <div className="add-card">
                                 <input id="fc-ress" className="add-card-submit" type="file" accept=".jpg, .jpeg, .png, .webp, .pdf, .zip" 
                                     onChange={(e) => { getImage(2,e) }}/>

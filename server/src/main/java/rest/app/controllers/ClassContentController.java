@@ -27,17 +27,17 @@ public class ClassContentController {
     }
 
     @PostMapping("")
-    public void createClass(@RequestBody ClassContent content) throws SQLException, URISyntaxException{
+    public void createContent(@RequestBody ClassContent content) throws SQLException, URISyntaxException{
         dao.add(content);
     }
 
-    @PutMapping("classes/{cid}")
-    public void updateClass(@PathVariable(value="cid") int classId, @RequestBody ClassContent content) throws SQLException, URISyntaxException{
-        dao.update(classId, content);
+    @PutMapping("classes/{cid}/{name}")
+    public void updateContent(@PathVariable(value="cid") int classId, @PathVariable(value="name") String name, @RequestBody ClassContent content) throws SQLException, URISyntaxException{
+        dao.update(classId, name, content);
     }
 
     @DeleteMapping("classes/{cid}/{name}")
-    public void deleteClass(@PathVariable(value="cid") int classId, @PathVariable(value="name") String name) throws SQLException, URISyntaxException{
+    public void deleteContent(@PathVariable(value="cid") int classId, @PathVariable(value="name") String name) throws SQLException, URISyntaxException{
         dao.delete(classId, name);
     }
 }

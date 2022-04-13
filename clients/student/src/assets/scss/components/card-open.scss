@@ -227,72 +227,125 @@
     }
 }
 
-.content-card {
+
+.content-card-wrapper {
     width: 90%;
     height: 60px;
     min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
-    gap: .5rem;
-
-    transition: .4s ease-in-out;
-    background-color: rgba(196, 196, 196, 0.925);
     border-radius: 10px;
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
 
-    &-icon {
-        width: 25%;
-        height: 70%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        border-right: 1px solid rgba(232, 232, 232, 0.7);
-
-        img {
+    .content-card, .content-card {
+        &-front, &-back {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            position: absolute;
+            backface-visibility: hidden;
+        }
+
+        &-back {
+            transform: rotateX(180deg);
         }
     }
 
-    &-name {
-        width: 60%;
+    .content-card {
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
-        font-weight: 600;
-        font-style: italic;
-    }
-
-    &-option {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
-
-        &-wrap {
+        justify-content: flex-start;
+        position: relative;
+        gap: .5rem;
+    
+        background-color: rgb(196, 196, 196);
+        border-radius: 10px;
+    
+        &-icon {
+            width: 25%;
+            height: 70%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            background-color: azure;
-            border-radius: 10px 0 10px 0;
-            padding: 5px 10px;
-            gap: 0.5rem;
-        }
-
-        &-dl,  &-edit, &-del {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-
+            justify-content: flex-end;
+            border-right: 1px solid rgba(232, 232, 232, 0.7);
+    
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
             }
         }
+    
+        &-name {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        &-edit {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .2rem;
+
+            input {
+                border: none;
+                outline: none;
+                z-index: 2;
+                padding: 5px 0px 5px 5px;
+                border-radius: 15px;
+                
+                &:focus {
+                    outline: 1px solid rgba(0, 0, 0, 0.515);
+                }
+            }
+
+            span {
+                font-style: italic;
+                font-weight: 600;
+            }
+        }
+    
+        &-option {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+    
+            &-wrap {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: azure;
+                border-radius: 10px 0 10px 0;
+                padding: 5px 10px;
+                gap: 0.5rem;
+            }
+    
+            &-dl,  &-edit, &-del, &-save {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+    
+                img {
+                    width: 100%;
+                    height: 100%;
+                    min-width: 20px;
+                    min-height: 20px;
+                }
+            }
+        }
     }
+}
+
+.flip {
+    transform: rotateX(180deg);
 }
