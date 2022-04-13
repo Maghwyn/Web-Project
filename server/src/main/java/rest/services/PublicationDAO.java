@@ -17,19 +17,24 @@ public class PublicationDAO {
 
     public List<Publication> getPublications() throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql =
-                    "SELECT P.*, O.notation, O.publicationId,  U.userFirstName, C.categoryName\n" +
+//            String sql =
+//                    "SELECT P.*, O.notation, O.publicationId,  U.userFirstName, C.categoryName\n" +
+//                    "FROM Publications P\n" +
+//                    "LEFT JOIN users U on U.userId = P.userId\n" +
+//                    "LEFT JOIN Categories C on C.categoryId = P.categoryId\n" +
+//                    "LEFT JOIN Opinions O on P.publicationid = O.publicationid\n" +
+//                    "ORDER BY P.date desc;";
+            String sql = "SELECT P.*,   U.userFirstName, C.categoryName\n" +
                     "FROM Publications P\n" +
                     "LEFT JOIN users U on U.userId = P.userId\n" +
                     "LEFT JOIN Categories C on C.categoryId = P.categoryId\n" +
-                    "LEFT JOIN Opinions O on P.publicationid = O.publicationid\n" +
                     "ORDER BY P.date desc;";
             try (Statement st = co.createStatement()) {
                 try (ResultSet rs = st.executeQuery(sql)) {
                         List<Publication> list = new ArrayList<>();
                         while (rs.next()){
                             Publication p = new Publication();
-                            p.setNotation(rs.getInt("notation"));
+//                            p.setNotation(rs.getInt("notation"));
                             p.setNotationPublicationId(rs.getInt("publicationId"));
                             p.setFirstName(rs.getString("userFirstName"));
                             p.setCategoryName(rs.getString("categoryName"));

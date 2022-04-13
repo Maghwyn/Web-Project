@@ -13,6 +13,12 @@ const PostArticle = (props) => {
   let content = document.getElementById("content");
   let categoryId = document.getElementById("categoryId");
 
+  // const normalize =  () => {
+  //   let str2 = categoryName.toLowerCase();
+  //   let str3 = str2[0].toUpperCase() + str2.slice(1).toLowerCase();
+  //   setCategoryName(str3);
+  // }
+
   const validForm = () => {
     if (
       (publicationTitle.value !== "") &&
@@ -83,6 +89,7 @@ const PostArticle = (props) => {
       .post(
         "http://localhost:8080/api/v1/category",
         { categoryName: categoryName },
+        // [0].toUpperCase() + categoryName.slice(1).toLowerCase()
         {
           method: "POST",
           headers: {
@@ -94,6 +101,8 @@ const PostArticle = (props) => {
   };
 
   const submitForm = async () => {
+    // await normalize;
+    console.log(categoryName);
     await getCategoryByName();
     await props.handleParentPublication();
     setCategoryName("");
