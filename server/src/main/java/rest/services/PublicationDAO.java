@@ -17,19 +17,24 @@ public class PublicationDAO {
 
     public List<Publication> getPublications() throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql =
-                    "SELECT P.*, O.notation, O.publicationId,  U.userFirstName, C.categoryName\n" +
+//            String sql =
+//                    "SELECT P.*, O.notation, O.publicationId,  U.userFirstName, C.categoryName\n" +
+//                    "FROM Publications P\n" +
+//                    "LEFT JOIN users U on U.userId = P.userId\n" +
+//                    "LEFT JOIN Categories C on C.categoryId = P.categoryId\n" +
+//                    "LEFT JOIN Opinions O on P.publicationid = O.publicationid\n" +
+//                    "ORDER BY P.date desc;";
+            String sql = "SELECT P.*,   U.userFirstName, C.categoryName\n" +
                     "FROM Publications P\n" +
                     "LEFT JOIN users U on U.userId = P.userId\n" +
                     "LEFT JOIN Categories C on C.categoryId = P.categoryId\n" +
-                    "LEFT JOIN Opinions O on P.publicationid = O.publicationid\n" +
                     "ORDER BY P.date desc;";
             try (Statement st = co.createStatement()) {
                 try (ResultSet rs = st.executeQuery(sql)) {
                         List<Publication> list = new ArrayList<>();
                         while (rs.next()){
                             Publication p = new Publication();
-                            p.setNotation(rs.getInt("notation"));
+//                            p.setNotation(rs.getInt("notation"));
                             p.setNotationPublicationId(rs.getInt("publicationId"));
                             p.setFirstName(rs.getString("userFirstName"));
                             p.setCategoryName(rs.getString("categoryName"));
@@ -74,22 +79,26 @@ public class PublicationDAO {
 
     public List<Publication> getPublicationByCategoryName(String categoryName) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "SELECT P.* , U.userFirstName, C.categoryName\n" +
-                    "FROM Publications P, Categories C, Users U\n" +
-                    "WHERE P.categoryId = C.categoryId\n" +
-                    "AND C.categoryName = ? \n" +
-                    "ORDER BY P.date desc;";
+            String sql = "Select P.*, O.notation, O.publicationId, U.userFirstName, C.categoryName\n" +
+                    "FROM publications P\n" +
+                    "Left JOIN users U On U.userId = P.userid\n" +
+                    "Left JOIN categories C on C.categoryid = P.categoryid\n" +
+                    "LEFT JOIN  Opinions O on P.publicationid = O.publicationid\n" +
+                    "Where C.categoryname = ?\n" +
+                    "ORDER BY  P.date desc;";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setString(1, categoryName);
                 try (ResultSet rs = st.executeQuery()) {
                     List<Publication> list = new ArrayList<>();
                     while (rs.next()) {
                         Publication p = new Publication();
+                        p.setNotation(rs.getInt("notation"));
+                        p.setNotationPublicationId(rs.getInt("publicationId"));
+                        p.setFirstName(rs.getString("userFirstName"));
+                        p.setCategoryName(rs.getString("categoryName"));
                         p.setPublicationId(rs.getInt("publicationid"));
                         p.setCategoryId(rs.getInt("categoryid"));
-                        p.setCategoryName(rs.getString("categoryName"));
                         p.setUserId(rs.getInt("userid"));
-                        p.setFirstName(rs.getString("userFirstName"));
                         p.setPublicationTitle(rs.getString("publicationtitle"));
                         p.setContent(rs.getString("content"));
                         p.setDate(rs.getString("date"));
