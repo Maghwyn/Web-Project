@@ -1,172 +1,81 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import React, { useState, useRef } from "react";
+import { addPublication, getCategoryByName, createCategory } from "../../functions/publication";
+import { capitalize } from "../../functions/utils";
 
-const PostArticle = (props) => {
-  const [titlePublication, setTitlePublication] = useState("");
-  const [contentPublication, setContentPublication] = useState("");
-  const [categoryName, setCategoryName] = useState("");
-  const sendPublication = useRef(false);
-  const userId = props.userId;
+const PostArticle = ({userId, updateTag}) => {
+    const [form, setForm] = useState({categoryName: "", userId: userId, publicationTitle: "", content: ""})
+    const sendPublication = useRef(false);
 
-  // Send Publication only when fields are full on
-  let publicationTitle = document.getElementById("publicationTitle");
-  let content = document.getElementById("content");
-  let categoryId = document.getElementById("categoryId");
+    const fieldState = (name, $value) => ({
+        title   : () => setForm(valid => ({...valid, publicationTitle: $value})),
+        content : () => setForm(valid => ({...valid, content: $value})),
+        name    : () => setForm(valid => ({...valid, categoryName: $value}))
+    })[name]()
 
-  // const normalize =  () => {
-  //   let str2 = categoryName.toLowerCase();
-  //   let str3 = str2[0].toUpperCase() + str2.slice(1).toLowerCase();
-  //   setCategoryName(str3);
-  // }
+    const validForm = (e) => {
+        const {name, value} = e.target;
+        if(name === "title") console.log(capitalize(value));
 
-  const validForm = () => {
-    if (
-      (publicationTitle.value !== "") &&
-      (content.value !== "") &&
-      (categoryId.value !== "")
-    ) {
-      sendPublication.current = true;
-    } else {
-      
-      sendPublication.current = false;
-    }
-  };
-  // ----------------------------
+        fieldState(name, value);
+        if(form.categoryName && form.content && form.publicationTitle) sendPublication.current = true;
+        else sendPublication.current = false;
+    };
 
-  const getCategoryByName = async () => {
-    try {
-      const categoryId = await axios
-        .get(`http://localhost:8080/api/v1/category/name/${categoryName}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            return res.data.categoryId;
-          } else {
-            throw new Error("A problem appeared");
-          }
-        })
-        .catch(function (err) {
-          console.error(err);
-        });
-      if (categoryId !== undefined) {
-        await addPublication(categoryId);
-      } else {
-        await createCategory();
-        await getCategoryByName();
-      }
-    } catch {
-      console.error("error");
-    }
-  };
+    const processForm = async () => {
+        const data = await getCategoryByName(form.categoryName);
 
-  const addPublication = async (categoryId) => {
-    await axios
-      .post(
-        "http://localhost:8080/api/v1/publications",
-        {
-          categoryId: categoryId,
-          userId: userId,
-          publicationTitle: titlePublication,
-          content: contentPublication,
-        },
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+        if (data.categoryId !== undefined) {
+            const body = {categoryId: data.categoryId, userId: userId, publicationTitle: form.publicationTitle, content: form.content}
+            const status = await addPublication(body);
+            return status;
+        }else { 
+            await createCategory(form.categoryName);
+            const data2 = await getCategoryByName(form.categoryName);
+            const body = {categoryId: data2.categoryId, userId: userId, publicationTitle: form.publicationTitle, content: form.content}
+            const status = await addPublication(body);
+            return status;
         }
-      )
-      .then((res) => console.log(res));
   };
 
-  const createCategory = async () => {
-    await axios
-      .post(
-        "http://localhost:8080/api/v1/category",
-        { categoryName: categoryName },
-        // [0].toUpperCase() + categoryName.slice(1).toLowerCase()
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+    const submitForm = async (e) => {
+        e.preventDefault();
+        const status = await processForm();
+
+        console.log(status)
+        if(status === 200) {
+            await updateTag(form.categoryName);
+            sendPublication.current = false;
+            setForm(preVal => ({...preVal, categoryName: "", publicationTitle: "", content: ""}));
         }
-      )
-      .then((res) => console.log(res));
-  };
+    }
 
-  const submitForm = async () => {
-    // await normalize;
-    console.log(categoryName);
-    await getCategoryByName();
-    await props.handleParentPublication();
-    setCategoryName("");
-    setTitlePublication("");
-    setContentPublication("");
-    sendPublication.current = false;
-  }
+    return (
+        <form className="fill-postPublications-form" onSubmit={(e) => submitForm(e)}>
+            <div>
+                <h3>Titre de la ressource :</h3>
+                <input type="text" id="publicationTitle" name="title" value={form.publicationTitle} onChange={validForm}/>
+            </div>
 
-  return (
-    <>
-      <form
-        className="fill-postPublications-form"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <div>
-          <div>Titre de la ressource : </div>
-          <input
-            type="text"
-            id="publicationTitle"
-            name="publicationTitle"
-            value={titlePublication}
-            onChange={(e) => {
-              setTitlePublication(e.target.value);
-              validForm();
-            }}
-          />
-        </div>
-        <div>
-          <div>Qu'avez vous à partager aujourd'hui ? </div>
-          <input
-            type="text"
-            id="content"
-            name="content"
-            value={contentPublication}
-            onChange={(e) => {
-              setContentPublication(e.target.value);
-              validForm();
-            }}
-          />
-        </div>
-        <div>
-          <div>À quelle catégorie appartient votre ressource ? </div>
-          <input
-            type="text"
-            id="categoryId"
-            name="categoryId"
-            value={categoryName}
-            onChange={(e) => {
-              setCategoryName(e.target.value);
-              validForm();
-            }}
-          />
-        </div>
-        <div>
-          {
-            sendPublication.current ?
-              <button  id="sendText" type="submit" onClick={(e) => {submitForm() ; e.target.closest("form").reset()}} >Send your publications !!!</button>
-              :
-              <button disabled id="sendText" type="submit">Send your publications !!!</button>
-          }
-          </div>
-      </form>
-    </>
-  );
+            <div>
+                <h3>Qu'avez vous à partager aujourd'hui ? </h3>
+                <input type="text" id="content" name="content" value={form.content} onChange={validForm}/>
+            </div>
+                
+            <div>
+                <h3>À quelle catégorie appartient votre ressource ?</h3>
+                <input type="text" id="categoryName" name="name" value={form.categoryName} onChange={validForm}/>
+            </div>
+
+            <div>
+            {
+                sendPublication.current ?
+                    <button id="sendText" type="submit">Send your publications !!!</button>
+                  :
+                    <button disabled id="sendText">Send your publications !!!</button>
+            }
+            </div>
+        </form>
+    );
 };
 
 export default PostArticle;

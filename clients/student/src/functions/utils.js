@@ -16,3 +16,7 @@ export function fetchExtSvg(ext, array = {}, img = "") {
 
     return img;
 }
+
+export function capitalize(str) {
+    return str.toLowerCase().charAt(0).toUpperCase() + str.slice(1);
+}

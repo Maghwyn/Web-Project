@@ -56,15 +56,13 @@ public class PublicationDAO {
 
     public List<Publication> getPublicationByCategoryTagName() throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "SELECT categoryName From Categories\n" +
-                    "Group By categoryName;";
+            String sql = "SELECT categoryname FROM categories;";
             try (Statement st = co.createStatement()) {
                 try (ResultSet rs = st.executeQuery(sql)) {
                     List<Publication> list = new ArrayList<>();
                     while (rs.next()) {
                         Publication p = new Publication();
                         p.setCategoryName(rs.getString("categoryName"));
-//                        p.setCategoryId(rs.getInt("categoryId"));
                         list.add(p);
                     }
                     return list;
