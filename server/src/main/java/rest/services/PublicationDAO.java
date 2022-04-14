@@ -17,39 +17,38 @@ public class PublicationDAO {
 
     public List<Publication> getPublications() throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-//            String sql =
-//                    "SELECT P.*, O.notation, O.publicationId,  U.userFirstName, C.categoryName\n" +
-//                    "FROM Publications P\n" +
-//                    "LEFT JOIN users U on U.userId = P.userId\n" +
-//                    "LEFT JOIN Categories C on C.categoryId = P.categoryId\n" +
-//                    "LEFT JOIN Opinions O on P.publicationid = O.publicationid\n" +
-//                    "ORDER BY P.date desc;";
-            String sql = "SELECT P.*,   U.userFirstName, C.categoryName\n" +
-                    "FROM Publications P\n" +
-                    "LEFT JOIN users U on U.userId = P.userId\n" +
-                    "LEFT JOIN Categories C on C.categoryId = P.categoryId\n" +
-                    "ORDER BY P.date desc;";
+            String sql = "SELECT P.*," +
+                        "SUM(case when O.notation=1 then 1 else 0 end) as liked," +
+                        "SUM(case when O.notation=2 then 1 else 0 end) as rework," +
+                        "SUM(case when O.notation=3 then 1 else 0 end) as deprecated," +
+                        "O.publicationId,  U.userFirstName, C.categoryName " +
+                        "FROM Publications P " +
+                        "JOIN users U on U.userId = P.userId " +
+                        "JOIN Categories C on C.categoryId = P.categoryId " +
+                        "LEFT JOIN Opinions O on P.publicationid = O.publicationid " +
+                        "GROUP BY P.publicationId, O.publicationId, U.userFirstName, C.categoryName " +
+                        "ORDER BY P.date desc;";
             try (Statement st = co.createStatement()) {
                 try (ResultSet rs = st.executeQuery(sql)) {
-                        List<Publication> list = new ArrayList<>();
-                        while (rs.next()){
-                            Publication p = new Publication();
-//                            p.setNotation(rs.getInt("notation"));
-                            p.setNotationPublicationId(rs.getInt("publicationId"));
-                            p.setFirstName(rs.getString("userFirstName"));
-                            p.setCategoryName(rs.getString("categoryName"));
+                    List<Publication> list = new ArrayList<>();
+                    while (rs.next()){
+                        Publication p = new Publication();
                             p.setPublicationId(rs.getInt("publicationid"));
                             p.setCategoryId(rs.getInt("categoryid"));
                             p.setUserId(rs.getInt("userid"));
                             p.setPublicationTitle(rs.getString("publicationtitle"));
                             p.setContent(rs.getString("content"));
                             p.setDate(rs.getString("date"));
+                            p.setLiked(rs.getInt("liked"));
+                            p.setRework(rs.getInt("rework"));
+                            p.setDeprecated(rs.getInt("deprecated"));
+                            p.setNotationPublicationId(rs.getInt("publicationid"));
+                            p.setFirstName(rs.getString("userFirstname"));
+                            p.setCategoryName(rs.getString("categoryname"));
                             list.add(p);
-                            }
-                        return list;
                         }
-
-
+                    return list;
+                }
             }
         }
     }
@@ -67,33 +66,27 @@ public class PublicationDAO {
                     }
                     return list;
                 }
-
             }
-
-
         }
-
     }
 
     public List<Publication> getPublicationByCategoryName(String categoryName) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "Select P.*, O.notation, O.publicationId, U.userFirstName, C.categoryName\n" +
-                    "FROM publications P\n" +
-                    "Left JOIN users U On U.userId = P.userid\n" +
-                    "Left JOIN categories C on C.categoryid = P.categoryid\n" +
-                    "LEFT JOIN  Opinions O on P.publicationid = O.publicationid\n" +
-                    "Where C.categoryname = ?\n" +
-                    "ORDER BY  P.date desc;";
+            String sql = "Select P.*, U.userFirstName, C.categoryName\n" +
+                        "FROM publications P\n" +
+                        "Left JOIN users U On U.userId = P.userid\n" +
+                        "Left JOIN categories C on C.categoryid = P.categoryid\n" +
+                        "Where C.categoryname = ?\n" +
+                        "ORDER BY  P.date desc;";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setString(1, categoryName);
                 try (ResultSet rs = st.executeQuery()) {
                     List<Publication> list = new ArrayList<>();
                     while (rs.next()) {
                         Publication p = new Publication();
-                        p.setNotation(rs.getInt("notation"));
-                        p.setNotationPublicationId(rs.getInt("publicationId"));
-                        p.setFirstName(rs.getString("userFirstName"));
-                        p.setCategoryName(rs.getString("categoryName"));
+                        p.setNotationPublicationId(rs.getInt("publicationid"));
+                        p.setFirstName(rs.getString("userFirstname"));
+                        p.setCategoryName(rs.getString("categoryname"));
                         p.setPublicationId(rs.getInt("publicationid"));
                         p.setCategoryId(rs.getInt("categoryid"));
                         p.setUserId(rs.getInt("userid"));
@@ -140,7 +133,6 @@ public class PublicationDAO {
                 st.setInt(2, publication.getUserId());
                 st.setString(3, publication.getPublicationTitle());
                 st.setString(4, publication.getContent());
-//                st.setString(5, publication.getDate());
                 st.execute();
             }
         }

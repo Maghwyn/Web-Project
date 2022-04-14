@@ -33,8 +33,7 @@ const RenderApp = ({logged}) => {
             <Layout setFoundPublication={setFoundPublication} publications={publications} email={user.email}>
                 <Switch>
                     <Route path="/home"      element={<get.Home/>}/>
-                    <Route path="/ressource" element={<get.Ressources />}/>
-                    <Route path="/fill"      element={<get.Fill publications={publications} foundPublication={foundPublication} updatePublications={updatePublications} userId={user.id} />}/>
+                    <Route path="/ressources" element={<get.Ressources publications={publications} foundPublication={foundPublication} updatePublications={updatePublications} userId={user.id}/>}/>
                     <Route path="/mes-cours" element={<get.Classes user={user}/>}/>
                     <Route path="/contact"   element={<get.Contact/>}/>
                     <Route path="*"          element={<get.Error/>}/>

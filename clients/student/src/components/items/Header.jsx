@@ -40,16 +40,15 @@ const Header = ({ email, publications, setFoundPublication }) => {
                 </div>
                 <nav className="header-nav">
                     <ul>
-                        <li><Link to="/ressource">Ressource</Link></li>
-                        <li><Link to="/fill">Flux</Link></li>
+                        <li><Link to="/ressources">Ressources</Link></li>
                         <li><Link to="/mes-cours">Cours</Link></li>
                     </ul>
                 </nav>
                 <div className="header-search">
-                    <form className="search-form" onSubmit={(e) => {navigate("/fill"); e.preventDefault();}}>
+                    <form className="search-form" onSubmit={(e) => {navigate("/ressources"); e.preventDefault();}}>
                         <input className="search-bar" value={publicationName} onChange={filtering} 
                             placeholder="Faire une recherche.." required/>
-                        <input className="search-submit" type="submit" value="GO" onClick={() => navigate("/fill")}/>
+                        <input className="search-submit" type="submit" value="GO" onClick={() => navigate("/ressources")}/>
                     </form>
                 </div>
                 <div className="header-user">

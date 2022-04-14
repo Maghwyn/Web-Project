@@ -6,12 +6,6 @@ export async function getAllPublications() {
     .catch((err) => console.log(err));
 }
 
-export async function getOpinions() {
-    return await axios.get("http://localhost:8080/api/v1/opinions")
-    .then((res) => res.data)
-    .catch((err) => console.log(err))
-}
-
 export async function getCategoryTag() {
     const tag = [];
     const data = await axios.get("http://localhost:8080/api/v1/publications/categoryTagName")

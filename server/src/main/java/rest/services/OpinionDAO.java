@@ -35,20 +35,21 @@ public class OpinionDAO {
         }
     }
 
-    public Opinion getOpinionByUserIdAndPublicationId(int uid, int pid) throws SQLException, URISyntaxException {
+    public List<Opinion> getOpinionsByUserId(int uid) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
-            String sql = "SELECT * FROM opinions WHERE userid=? and publicationid=?;";
+            String sql = "SELECT * FROM opinions WHERE userid=?;";
             try (PreparedStatement st = co.prepareStatement(sql)) {
                 st.setInt(1, uid);
                 try (ResultSet rs = st.executeQuery()) {
-                    if (rs.next()) {
+                    List<Opinion> list = new ArrayList<>();
+                    while (rs.next()) {
                         Opinion o = new Opinion();
                         o.setUserId(rs.getInt("userid"));
                         o.setPublicationId(rs.getInt("publicationid"));
                         o.setNotation(rs.getInt("notation"));
-                        return o;
+                        list.add(o);
                     }
-                    return null;
+                    return list;
                 }
             }
         }

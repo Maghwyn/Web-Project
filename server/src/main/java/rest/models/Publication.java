@@ -7,49 +7,12 @@ public class Publication {
     private String publicationTitle;
     private String content;
     private String date;
-    private int notation;
+    private int liked;
+    private int rework;
+    private int deprecated; 
     private int notationPublicationId;
-    //
-    // FROM USER FOR LIST IN REQUEST PUBLICATIONS
     private String firstName;
-    //
-    // FROM CATEGORY FOR LIST IN REQUEST PUBLICATIONS
     private String categoryName;
-
-    public int getNotationPublicationId() {
-        return notationPublicationId;
-    }
-
-    public void setNotationPublicationId(int notationPublicationId) {
-        this.notationPublicationId = notationPublicationId;
-    }
-
-    // FROM NOTATION TO GET ALL NOTATIONS BY ARTICLES
-    public int getNotation() {
-        return notation;
-    }
-
-    public void setNotation(int notation) {
-        this.notation = notation;
-    }
-
-
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     public int getPublicationId() {
         return publicationId;
@@ -69,6 +32,25 @@ public class Publication {
     public String getDate() {
         return date;
     }
+    public int getLiked() {
+        return liked;
+    }
+    public int getRework() {
+        return rework;
+    }
+    public int getDeprecated() {
+        return deprecated;
+    }
+    public int getNotationPublicationId() {
+        return notationPublicationId;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getCategoryName() {
+        return categoryName;
+    }
+
 
     public void setPublicationId(int publicationId) {
         this.publicationId = publicationId;
@@ -87,5 +69,23 @@ public class Publication {
     }
     public void setDate(String date) {
         this.date = date;
+    }
+    public void setLiked(int liked) {
+        this.liked = liked;
+    }
+    public void setRework(int rework) {
+        this.rework = rework;
+    }
+    public void setDeprecated(int deprecated) {
+        this.deprecated = deprecated;
+    }
+    public void setNotationPublicationId(int notationPublicationId) {
+        this.notationPublicationId = notationPublicationId;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

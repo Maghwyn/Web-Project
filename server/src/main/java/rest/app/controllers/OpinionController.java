@@ -19,9 +19,9 @@ public class OpinionController {
         return dao.getOpinions();
     }
 
-    @GetMapping("users/{uid}/publication/{pid}")
-    public Opinion getOpinionByUserIdAndPublicationId(@PathVariable(value="uid") int userId, @PathVariable(value="pid") int publicationId) throws SQLException, URISyntaxException{
-        return dao.getOpinionByUserIdAndPublicationId(userId, publicationId);
+    @GetMapping("users/{uid}")
+    public List<Opinion> getOpinionsByUserId(@PathVariable(value="uid") int userId) throws SQLException, URISyntaxException{
+        return dao.getOpinionsByUserId(userId);
     }
 
     @PostMapping("")

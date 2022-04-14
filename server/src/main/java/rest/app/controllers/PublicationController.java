@@ -23,19 +23,15 @@ public class PublicationController {
         return dao.getPublicationById(publicationId, categoryId, userId);
     }
 
-
     @GetMapping("/{categoryName}")
     public List<Publication> getPublicationByCategoryName(@PathVariable(value = "categoryName") String categoryName) throws SQLException, URISyntaxException {
         return dao.getPublicationByCategoryName(categoryName);
     }
 
-
-    // GET EACH CATEGORIESTAGSNAME TO RETURN IT AND PRINT TO TAGS
     @GetMapping("/categoryTagName")
     public List<Publication> getPublicationByCategoryTagName() throws SQLException, URISyntaxException {
         return dao.getPublicationByCategoryTagName();
     }
-
 
     @PostMapping("")
     public void createPublication(@RequestBody Publication publication) throws SQLException, URISyntaxException{
