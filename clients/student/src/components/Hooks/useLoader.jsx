@@ -8,7 +8,7 @@ import { getClassesAccess } from "../../functions/classes";
 const useLoader = () => {
     const [user, setUser] = useState({id: null, firstName: null, lastName: null, email: null, canview: null});
     const [classes, setClasses] = useState([])
-    const [publications, setPublicationSaved] = useState([]);
+    const [publications, setPublications] = useState([]);
     const [categories, setCategories] = useState([]);
     const [opinions, setOpinions] = useState([]);
     const loading = useRef(true);
@@ -24,7 +24,7 @@ const useLoader = () => {
                 
                 setUser(preVal => ({...preVal, id: id, firstName: firstName, lastName: lastName, email: email, canview: canView}))
                 setClasses(preVal => preVal = clas);
-                setPublicationSaved(publi);
+                setPublications(publi);
                 setCategories(cat);
                 setOpinions(opi);
             })();
@@ -35,7 +35,7 @@ const useLoader = () => {
 
     console.log(categories)
 
-    return {user, classes, setClasses, publications, categories, setCategories, opinions, setOpinions}
+    return {user, classes, publications, setPublications, categories, setCategories, opinions, setOpinions}
 }
 
 export default useLoader;

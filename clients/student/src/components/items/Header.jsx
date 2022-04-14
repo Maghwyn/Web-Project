@@ -30,9 +30,9 @@ const Header = ({ email, publications, setFoundPublication }) => {
             <header className="header">
                 <div className="header-logo">
                     <Link className="logo-wrapper" to="/home">
-                        <div className="logo-link">
+                        {/* <div className="logo-link">
                             <img src={logo} alt="logo"/>
-                        </div>
+                        </div> */}
                         <div className="logo-name">
                             <span>CodingSource</span>
                         </div>

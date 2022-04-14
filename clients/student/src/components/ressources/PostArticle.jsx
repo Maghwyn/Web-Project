@@ -42,7 +42,6 @@ const PostArticle = ({userId, updateTag}) => {
         e.preventDefault();
         const status = await processForm();
 
-        console.log(status)
         if(status === 200) {
             await updateTag(form.categoryName);
             sendPublication.current = false;

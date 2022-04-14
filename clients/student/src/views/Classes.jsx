@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import ClassesCard from "../components/items/ClassesCard";
 import ClassesCardOpen from "../components/items/ClassCardOpen";
 
-const Classes = ({classes, setClasses, user}) => {
+const Classes = ({classes, user}) => {
     const [cardState, setCardState] = useState(false);
     const data = useRef("");
 

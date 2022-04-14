@@ -3,8 +3,9 @@ import PostArticle from "../components/ressources/PostArticle";
 import TagCategory from "../components/ressources/TagCategory";
 import Articles from "../components/ressources/Articles";
 import { postOpinion, updateOpinion, deleteOpinion } from "../functions/opinions";
+import { getAllPublications } from "../functions/publication";
 
-const Ressources = ({publications, categories, setCategories, opinions, setOpinions, foundPublication, userId}) => {
+const Ressources = ({publications, setPublications, categories, setCategories, opinions, setOpinions, foundPublication, userId}) => {
     const [articles, setArticles] = useState([]);
     const searchOkay = foundPublication;
     const tagActive = useRef("");
@@ -41,6 +42,9 @@ const Ressources = ({publications, categories, setCategories, opinions, setOpini
         let isExist = false;
         categories.forEach(el => { if(el.categoryName === name) isExist = true; })
         if(!isExist) setCategories(preVal => [...preVal, {categoryName: name}]);
+
+        const data =  await getAllPublications();
+        setPublications(preVal => preVal = data);
     };
 
 
@@ -83,7 +87,6 @@ const Ressources = ({publications, categories, setCategories, opinions, setOpini
         return createOpinion(publicationID, choice, body, 1)
     }
 
-    console.log(categories)
     return (
         <main className="fill">
             <div className="fill-tag-fixed">
