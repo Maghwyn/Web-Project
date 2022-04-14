@@ -26,42 +26,45 @@ const Header = ({ email, publications, setFoundPublication }) => {
     };
 
     return (
-        <header className="header">
-            <div className="header-logo">
-                <Link className="logo-wrapper" to="/home">
-                    <div className="logo-link">
-                        <img src={logo} alt="logo"/>
-                    </div>
-                    <div className="logo-name">
-                        <span>CodingSource</span>
-                    </div>
-                </Link>
-            </div>
-            <nav className="header-nav">
-                <ul>
-                    <li><Link to="/ressource">Ressource</Link></li>
-                    <li><Link to="/fill">Flux</Link></li>
-                    <li><Link to="/mes-cours">Cours</Link></li>
-                </ul>
-            </nav>
-            <div className="header-search">
-                <form className="search-form" onSubmit={(e) => e.preventDefault()}>
-                    <input className="search-bar" value={publicationName} onChange={filtering} 
-                        placeholder="Faire une recherche.." required/>
-                    <input className="search-submit" type="submit" value="GO" onClick={() => navigate("/fill")}/>
-                </form>
-            </div>
-            <div className="header-user">
-                <div className="user-pic">
-                    <img src={profilePicture} alt="user_pic" />
+        <>
+            <header className="header">
+                <div className="header-logo">
+                    <Link className="logo-wrapper" to="/home">
+                        <div className="logo-link">
+                            <img src={logo} alt="logo"/>
+                        </div>
+                        <div className="logo-name">
+                            <span>CodingSource</span>
+                        </div>
+                    </Link>
                 </div>
-                <div className="user-name">
-                    <span>{email}</span>
+                <nav className="header-nav">
+                    <ul>
+                        <li><Link to="/ressource">Ressource</Link></li>
+                        <li><Link to="/fill">Flux</Link></li>
+                        <li><Link to="/mes-cours">Cours</Link></li>
+                    </ul>
+                </nav>
+                <div className="header-search">
+                    <form className="search-form" onSubmit={(e) => {navigate("/fill"); e.preventDefault();}}>
+                        <input className="search-bar" value={publicationName} onChange={filtering} 
+                            placeholder="Faire une recherche.." required/>
+                        <input className="search-submit" type="submit" value="GO" onClick={() => navigate("/fill")}/>
+                    </form>
                 </div>
-            </div>
+                <div className="header-user">
+                    <div className="user-pic">
+                        <img src={profilePicture} alt="user_pic" />
+                    </div>
+                    <div className="user-name">
+                        <span>{email}</span>
+                    </div>
+                </div>
 
-            <div className="user-list"></div>
-        </header>
+                <div className="user-list"></div>
+            </header>
+            <div className="header-margin"/>
+        </>
     );
 };
 

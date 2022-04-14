@@ -54,28 +54,21 @@ const Articles = ({opinions, userId, searchFound, publications, tagActive, artic
             if(data.publicationId === data.notationPublicationId && data.notation === 3) notLike++;
 
             return (
-                <div key={index} className="fill-container-content">
-                    <ul>
-                        <li><span className="title">{data.publicationTitle}</span></li>
-                        <li><span>{data.content}</span></li>
-                        <li><span>{data.date}</span></li>
-                        <li><span>{data.categoryName}</span></li>
-                        <li><span>{data.firstName}</span></li>
-                        <li>
-                            <button onClick={() => postLikeChoice(userId, data.publicationId, 1)}>
-                                {addLike()}
-                            </button>
-                            <span>{like}</span>
-                            <button onClick={() => postLikeChoice(userId, data.publicationId, 2)}>
-                                {addReview()}
-                            </button>
-                            <span>{review}</span>
-                            <button onClick={() => postLikeChoice(userId, data.publicationId, 3)}>
-                                {addDislikes()}
-                            </button>
-                            <span>{notLike}</span>
-                        </li>
-                    </ul>
+                <div className="article-card">
+                    <div className="article-title">
+                        <h2>{data.publicationTitle}</h2>
+                    </div>
+                    <div className="article-content">
+                        <div className="article-content-main">
+                            <p>{data.content}</p>
+                        </div>
+                        <div className="article-content-footer">
+                            <span>{data.categoryName} - {data.firstName}</span>
+                            <span>{data.date}</span>
+                        </div>
+                    </div>
+                    <div className="article-like">
+                    </div>
                 </div>
             );
         });

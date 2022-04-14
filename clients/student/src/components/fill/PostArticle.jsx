@@ -29,6 +29,7 @@ const PostArticle = ({userId, updateTag}) => {
             const status = await addPublication(body);
             return status;
         }else { 
+            //Bug with recursive
             await createCategory(form.categoryName);
             const data2 = await getCategoryByName(form.categoryName);
             const body = {categoryId: data2.categoryId, userId: userId, publicationTitle: form.publicationTitle, content: form.content}
@@ -50,29 +51,32 @@ const PostArticle = ({userId, updateTag}) => {
     }
 
     return (
-        <form className="fill-postPublications-form" onSubmit={(e) => submitForm(e)}>
-            <div>
-                <h3>Titre de la ressource :</h3>
-                <input type="text" id="publicationTitle" name="title" value={form.publicationTitle} onChange={validForm}/>
+        <form className="fill-form">
+            <div className="fill-form-title">
+                <h2>Rajouter une publication</h2>
             </div>
-
-            <div>
-                <h3>Qu'avez vous à partager aujourd'hui ? </h3>
-                <input type="text" id="content" name="content" value={form.content} onChange={validForm}/>
-            </div>
-                
-            <div>
-                <h3>À quelle catégorie appartient votre ressource ?</h3>
-                <input type="text" id="categoryName" name="name" value={form.categoryName} onChange={validForm}/>
-            </div>
-
-            <div>
-            {
-                sendPublication.current ?
-                    <button id="sendText" type="submit">Send your publications !!!</button>
-                  :
-                    <button disabled id="sendText">Send your publications !!!</button>
-            }
+            <div className="fill-form-content">
+                <div className="fill-form-pub">
+                    <div className="fill-form-pub-title">
+                        <label htmlFor="ftitle">Titre de la ressource :</label>
+                        <input type="text" id="ftitle" name="title" value={form.publicationTitle} onChange={validForm}/>
+                    </div>
+                    <div className="fill-form-pub-content">
+                        <label htmlFor="fcontent">Qu'avez vous à partager aujourd'hui ?</label>
+                        <input type="text" id="fcontent" name="content" value={form.content} onChange={validForm}/>
+                    </div>
+                    <div className="fill-form-pub-cat">
+                        <label htmlFor="fcat">À quelle catégorie appartient votre ressource ?</label>
+                        <input type="text" id="fcat" name="name" value={form.categoryName} onChange={validForm}/>
+                    </div>
+                </div>
+                <div className="fill-form-submit">
+                    {sendPublication.current ?
+                        <button id="sendText" type="submit" onClick={(e) => submitForm(e)}>Send your publications !!!</button>
+                    :
+                        <button disabled id="sendText">Send your publications !!!</button>
+                    }
+                </div>
             </div>
         </form>
     );

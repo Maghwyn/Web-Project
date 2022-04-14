@@ -65,28 +65,27 @@ const Fill = ({ foundPublication, userId}) => {
     };
 
     return (
-        <div className="fill">
-            {/*OK*/}
-            <div className="fill-tagCategory">
-                <TagCategory fillPrinted={fillPrinted} tag={categoriesTag}/>
+        <main className="fill">
+            <div className="fill-tag-fixed">
+                <ul className="fill-tag-fixed-container">
+                    <TagCategory fillPrinted={fillPrinted} tag={categoriesTag}/>
+                    <div className="fill-tag-fixed-hider"><span>Scroll down</span></div>
+                </ul>
             </div>
-
-            {/*OK*/}
-            <div className="fill-postPublications">
-                {!searchOkay.length > 0 && <PostArticle userId={userId} updateTag={updateTag}/>}
+            <div className="fill-content">
+                <div className="fill-content-margin"/>
+                <div className="fill-content-pub">
+                    <div className="fill-content-editor">
+                        {!searchOkay.length > 0 && <PostArticle userId={userId} updateTag={updateTag}/>}
+                    </div>
+                    <div className="fill-content-article">
+                        {publicationSaved.length > 0 && <Articles opinions={opinions} userId={userId} searchFound={foundPublication}
+                            publications={publicationSaved} tagActive={tagActive.current} articles={articles}/>
+                        }
+                    </div>
+                </div>
             </div>
-
-            {/*NOT OK*/}
-            <div className="fill-container">
-                {publicationSaved.length > 0 && <Articles opinions={opinions} userId={userId} searchFound={foundPublication}
-                    publications={publicationSaved} tagActive={tagActive.current} articles={articles}/>
-                }
-            </div>
-
-            <div>
-                {/* <Opinions props={printPublicationsFetched}/> */}
-            </div>
-        </div>
+        </main>
     );
 };
 

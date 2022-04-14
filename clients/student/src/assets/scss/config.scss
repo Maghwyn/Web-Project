@@ -26,11 +26,14 @@ body {
             align-items: center;
             flex-direction: column;
             position: relative;
-            // overflow: hidden; // NO SCROLL HERE 
 
             &-content {
                 width: 100%;
                 flex-grow: 1;
+
+                // main {
+                //     margin-top: 8vh;
+                // }
             }
         }
     }
@@ -43,4 +46,8 @@ a {
 
 li {
     list-style-type: none;
+}
+
+.header-margin {
+    margin-top: 8vh;
 }
