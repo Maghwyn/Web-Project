@@ -1,73 +1,52 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import PostArticle from "../components/ressources/PostArticle";
 import TagCategory from "../components/ressources/TagCategory";
 import Articles from "../components/ressources/Articles";
-import { getCategoryTag, getAllPublications } from "../functions/publication";
-import { getOpinionsByUserId, postOpinion, updateOpinion, deleteOpinion } from "../functions/opinions";
+import { postOpinion, updateOpinion, deleteOpinion } from "../functions/opinions";
 
-const Ressources = ({foundPublication, userId}) => {
-    const [publicationSaved, setPublicationSaved] = useState([]);
+const Ressources = ({publications, categories, setCategories, opinions, setOpinions, foundPublication, userId}) => {
     const [articles, setArticles] = useState([]);
-    const [categoriesTag, setCategoriesTag] = useState([]);
-    const [opinions, setOpinions] = useState([]);
-    const loading = useRef(true);
-    const tagActive = useRef("");
     const searchOkay = foundPublication;
-
-    useEffect(() => {
-        if(loading.current && userId) {
-            (async () => {
-                const cat = await getCategoryTag();
-                const publi = await getAllPublications();
-                const opi = await getOpinionsByUserId(userId);
-                    
-                setPublicationSaved(publi);
-                setOpinions(opi)
-                setCategoriesTag(cat);
-            })();
-
-            loading.current = false;
-        }
-    }, [userId]);
+    const tagActive = useRef("");
 
     const fillPrinted = async (e) => {
         const name = e.target.textContent;
 
         if(tagActive.current !== name) {
-            const articles = publicationSaved.filter(el => el.categoryName === name);
+            const articles = publications.filter(el => el.categoryName === name);
 
             const setActiveTag = [];
-            categoriesTag.forEach(el => {
+            categories.forEach(el => {
                 if(el.categoryName === name) setActiveTag.push({categoryName: el.categoryName, isActive: true});
                 else setActiveTag.push({categoryName: el.categoryName, isActive: false});
             })
 
             tagActive.current = name;
-            setCategoriesTag(preVal => preVal = setActiveTag);
+            setCategories(preVal => preVal = setActiveTag);
             setArticles(preVal => preVal = articles);
 
         }else if(tagActive.current === name) {
             const setActiveTag = [];
-            categoriesTag.forEach(el => {
+            categories.forEach(el => {
                 setActiveTag.push({categoryName: el.categoryName, isActive: false});
             })
 
             tagActive.current = "";
-            setCategoriesTag(preVal => preVal = setActiveTag);
+            setCategories(preVal => preVal = setActiveTag);
             setArticles(preVal => preVal = []);
         }
     };
 
     const updateTag = async (name) => {
         let isExist = false;
-        categoriesTag.forEach(el => { if(el.categoryName === name) isExist = true; })
-        if(!isExist) setCategoriesTag(preVal => [...preVal, {categoryName: name}]);
+        categories.forEach(el => { if(el.categoryName === name) isExist = true; })
+        if(!isExist) setCategories(preVal => [...preVal, {categoryName: name}]);
     };
 
 
     // Cheat mode : active.
     const cheatUpdateOpinion = (pid, choice, state) => {
-        const pub = publicationSaved.find(el => el.publicationId === pid);
+        const pub = publications.find(el => el.publicationId === pid);
 
         if(state === 1) choice === 1 ? pub.liked++ : choice === 2 ? pub.rework++ : pub.deprecated++;
         if(state === -1) choice === 1 ? pub.liked-- : choice === 2 ? pub.rework-- : pub.deprecated--;
@@ -104,11 +83,12 @@ const Ressources = ({foundPublication, userId}) => {
         return createOpinion(publicationID, choice, body, 1)
     }
 
+    console.log(categories)
     return (
         <main className="fill">
             <div className="fill-tag-fixed">
                 <ul className="fill-tag-fixed-container">
-                    <TagCategory fillPrinted={fillPrinted} tag={categoriesTag}/>
+                    {categories.length > 0 && <TagCategory fillPrinted={fillPrinted} tag={categories}/>}
                     <div className="fill-tag-fixed-hider"><span>Scroll down</span></div>
                 </ul>
             </div>
@@ -119,7 +99,7 @@ const Ressources = ({foundPublication, userId}) => {
                         {!searchOkay.length > 0 && <PostArticle userId={userId} updateTag={updateTag}/>}
                     </div>
                     <div className="fill-content-article">
-                        {publicationSaved.length > 0 && <Articles userId={userId} searchFound={foundPublication} publications={publicationSaved} 
+                        {publications.length > 0 && <Articles userId={userId} searchFound={foundPublication} publications={publications} 
                             tagActive={tagActive.current} articles={articles} updatePublication={updatePublication}/>
                         }
                     </div>

@@ -1,24 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { getClassesAccess } from "../functions/classes";
+import { useRef, useState } from "react";
 import ClassesCard from "../components/items/ClassesCard";
 import ClassesCardOpen from "../components/items/ClassCardOpen";
 
-const Classes = ({user}) => {
-    const [classes, setClasses] = useState(false);
+const Classes = ({classes, setClasses, user}) => {
     const [cardState, setCardState] = useState(false);
-    const loading = useRef(true);
     const data = useRef("");
-
-    useEffect(() => {
-        if(loading.current && user.id !== null) {
-            (async () => {
-                const classesObject = await getClassesAccess(user.id);
-                setClasses(preVal => preVal = classesObject);
-            })()
-
-            loading.current = false;
-        }
-    }, [user.id])
 
     const openCard = (img, el) => {
         data.current = {image: img, user: el};
@@ -40,9 +26,9 @@ const Classes = ({user}) => {
             <div className="classes-content">
             {
                 !cardState ? 
-                    !loading.current && <ClassesCard classes={classes} event={openCard}/>
+                    classes && <ClassesCard classes={classes} event={openCard}/>
                   :
-                    !loading.current && <ClassesCardOpen data={data.current} event={closeCard}/>
+                    classes && <ClassesCardOpen data={data.current} event={closeCard}/>
             }
             </div>
         </main>

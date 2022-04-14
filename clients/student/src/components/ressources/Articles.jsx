@@ -26,7 +26,6 @@ const Articles = ({userId, searchFound, publications, tagActive, articles, updat
         ));
     };
 
-    //TODO: La recherche ne recherche pas dans le tag spécifié
     return tagActive ? 
                 searchFound.length > 0 ? renderResearch(searchFound) : renderResearch(articles)
               :
