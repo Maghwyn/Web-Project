@@ -5,20 +5,20 @@ export async function isUserAuthentificated(token = null) {
     
     cookies.forEach(cookie => {
         const params = new URLSearchParams(cookie);
-        const value = params.get('student');
+        const value = params.get('po');
         if(value !== null) token = value;
     });
 
     if(token === null) return false;
     token = token.replace(";", "");
 
-    const authentified = await axios.get(`http://localhost:8080/api/v1/users/session/${token}`)
+    const authentified = await axios.get(`http://localhost:8080/api/v1/productowners/session/${token}`)
     .then(res => { return res.data })
     .catch(function(err){ return false});
 
     if(!authentified) return false;
 
-    localStorage.setItem('student', 'logged');
+    localStorage.setItem('po', 'logged');
     return true;
 }
 
@@ -27,13 +27,13 @@ export async function getUserInfo(token = null) {
     
     cookies.forEach(cookie => {
         const params = new URLSearchParams(cookie);
-        const value = params.get('student');
+        const value = params.get('po');
         if(value !== null) token = value;
     });
 
     if(token === null) return false;
 
-    const user = await axios.get(`http://localhost:8080/api/v1/users/g/${token}`)
+    const user = await axios.get(`http://localhost:8080/api/v1/productowners/g/${token}`)
     .then(res => { return res.data; })
     .catch(function(err){ return false});
 

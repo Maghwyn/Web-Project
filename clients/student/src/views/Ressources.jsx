@@ -4,6 +4,7 @@ import TagCategory from "../components/ressources/TagCategory";
 import Articles from "../components/ressources/Articles";
 import { postOpinion, updateOpinion, deleteOpinion } from "../functions/opinions";
 import { getAllPublications } from "../functions/publication";
+import { Notif } from "../functions/popup";
 
 const Ressources = ({publications, setPublications, categories, setCategories, opinions, setOpinions, foundPublication, userId}) => {
     const [articles, setArticles] = useState([]);
@@ -44,6 +45,7 @@ const Ressources = ({publications, setPublications, categories, setCategories, o
         if(!isExist) setCategories(preVal => [...preVal, {categoryName: name}]);
 
         const data =  await getAllPublications();
+        Notif("#d4c465", "Votre publication a bien été crée");
         setPublications(preVal => preVal = data);
     };
 

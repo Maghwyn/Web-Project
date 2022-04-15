@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { fetchImages } from "../../functions/utils";
 import ContentCard from "./ContentCard";
 import { deleteClassesContent, getClassesContent, postClassesContent, updateClassesContent } from "../../functions/classes";
+import { Notif } from "../../functions/popup";
 
 const ClassesCardOpen = ({data, event}) => {
     const [files, setFiles] = useState([]);
@@ -10,6 +11,9 @@ const ClassesCardOpen = ({data, event}) => {
 
     const getImage = async (cat, e) => {
         const img = e.target.files[0];
+        const type = ["image/jpg", "image/jpeg", "image/png", "image/webp", "application/pdf", "application/zip"]
+        if(!type.includes(img.type)) return Notif("crimson", "Mauvais format de fichier, verifiez que l'extension du fichier comprend : [.jpg, .jpeg, .png, .webp, .pdf, .zip]");
+        console.log(img);
         const promise = new Promise((resolve) => {
             const reader = new FileReader();
             reader.onload = function () {
@@ -41,7 +45,6 @@ const ClassesCardOpen = ({data, event}) => {
         const input = e.target.closest(".content-card-option").previousSibling.childNodes[0];
         const newValue = `${input.value}${ext}`;
 
-        console.log(newValue + " : " + data.contentName)
         if(newValue === data.contentName) return card.classList.remove("flip");
         if(newValue === "") return;
 
@@ -73,8 +76,17 @@ const ClassesCardOpen = ({data, event}) => {
                 if(content.length !== 0) setFiles(preArray => preArray = content);
             })()
             loading.current = false;
+
+            addDragAndDropVisual(document.getElementById("fc-content"));
+            addDragAndDropVisual(document.getElementById("fc-ress"));
         }
     },[])
+
+    const addDragAndDropVisual = (element) => {
+        element.addEventListener('dragenter', function() { this.parentNode.classList.add('dragged-over'); })
+        element.addEventListener("dragexit", function() { this.parentNode.classList.remove('dragged-over'); });
+        element.addEventListener("drop", function() { this.parentNode.classList.remove('dragged-over'); });
+    }
 
     return (
         <main className="class-open">
@@ -107,9 +119,9 @@ const ClassesCardOpen = ({data, event}) => {
                         <div className="coc-course-content-cards">
                             {!loading.current && <ContentCard content={files} cat={1} delEvent={deleteFile} flip={flipFile} editEvent={editFile}/>}
                             <div className="add-card">
-                                <input id="fc-content" className="add-card-submit" type="file" accept=".jpg, .jpeg, .png, .webp, .pdf, .zip" 
-                                    onChange={(e) => { getImage(1,e) }}/>
-                                <label htmlFor="fc-content" className="add-card-design">
+                                <label id="card-content" htmlFor="fc-content" className="add-card-design">
+                                    <input id="fc-content" className="add-card-submit" type="file" accept=".jpg, .jpeg, .png, .webp, .pdf, .zip" 
+                                        onChange={(e) => { getImage(1,e) }}/>
                                     <span className="add-card-design-placeholder">Ajouter un fichier.. [pdf/zip/png/jpg]</span>
                                     <span className="add-card-design-cross"></span>
                                 </label>
@@ -123,9 +135,9 @@ const ClassesCardOpen = ({data, event}) => {
                         <div className="coc-course-ressource-cards">
                             {!loading.current && <ContentCard content={files} cat={2} delEvent={deleteFile} flip={flipFile} editEvent={editFile}/>}
                             <div className="add-card">
-                                <input id="fc-ress" className="add-card-submit" type="file" accept=".jpg, .jpeg, .png, .webp, .pdf, .zip" 
-                                    onChange={(e) => { getImage(2,e) }}/>
-                                <label htmlFor="fc-ress" className="add-card-design">
+                                <label id="card-ress" htmlFor="fc-ress" className="add-card-design">
+                                    <input id="fc-ress" className="add-card-submit" type="file" accept=".jpg, .jpeg, .png, .webp, .pdf, .zip" 
+                                        onChange={(e) => { getImage(2,e) }}/>
                                     <span className="add-card-design-placeholder">Ajouter un fichier.. [pdf/zip/png/jpg]</span>
                                     <span className="add-card-design-cross"></span>
                                 </label>
