@@ -1,12 +1,7 @@
-import Fill from "../components/items/fill/Fill";
-
-const Home = () => {
-
-    return (
+const Home = () => (
     <>
-    <h1>Home page</h1>
-    <Fill />
-    </>)
-};
+        Bienvenue sur le website non officiel de la coding factory
+    </>
+)
 
 export default Home;

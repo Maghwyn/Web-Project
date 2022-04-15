@@ -70,6 +70,7 @@ export const resolveAuth = async (req, res) => {
         res.cookie("student", req.user.id, {expires: new Date(Date.now() + 6048000)});
         res.redirect('http://localhost:3000/auth');
     }else {
+        console.log("hey wtf")
         res.cookie("po", req.user.id, {expires: new Date(Date.now() + 6048000)});
         res.redirect('http://localhost:3001/auth');
     }

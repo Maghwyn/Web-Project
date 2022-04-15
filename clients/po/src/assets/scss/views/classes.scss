@@ -1,0 +1,63 @@
+@import "../components/card.scss";
+@import "../components/card-open.scss";
+
+.classes {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-options {
+        width: 20%;
+        height: 100%;
+        background: rgb(63, 63, 63);
+
+        ul {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            li {
+                width: 100%;
+                height: 10%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-bottom: 1px solid rgb(109, 109, 109);
+
+                &:first-child {
+                    font-weight: 700;
+
+                    &:hover {
+                        background: rgb(63, 63, 63);
+                        cursor: default;
+                    }
+                }
+
+                &:hover {
+                    background: rgb(49, 49, 49);
+                    cursor: pointer;
+                }
+
+                span {
+                    color: white;
+                }
+            }
+        }
+    }
+
+    &-content {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        padding: 2rem;
+        flex-flow: row wrap;
+        align-content: flex-start;
+        justify-content: center;
+        gap: 2rem;
+
+        position: relative;
+    }
+}

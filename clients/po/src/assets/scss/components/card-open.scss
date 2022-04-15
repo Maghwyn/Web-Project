@@ -1,0 +1,351 @@
+.class-open {
+    width: 100%;
+    height: 75.5vh;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(103, 103, 103);
+    background-color: rgb(78, 78, 78);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+
+    &-exit {
+        position: absolute;
+        margin: 10px 0 0 10px;
+        z-index: 10;
+        
+        img {
+            cursor: pointer;
+        }
+    }
+
+    &-banner {
+        width: 100%;
+        height: 30%;
+        border-bottom: 1px solid azure;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+
+        &-image {
+            width: 100%;
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &-po {
+            position: absolute;
+            font-size: 20px;
+            padding: 5px 20px;
+            background-color: azure;
+            border-radius: 0 10px 0 0;
+        }
+    }
+
+    &-content {
+        width: 100%;
+        height: 70%;
+        display: flex;
+
+        .coc {
+            &-options {
+                width: 25%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                border-right: 1px solid rgb(103, 103, 103);
+                background-color: rgb(55, 55, 55);
+
+                ul {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    position: relative;
+
+                    li {
+                        width: 100%;
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-bottom: 1px solid rgb(103, 103, 103);
+
+                        &:last-child {
+                            position: absolute;
+                            bottom: 0;
+                            border-bottom: none;
+                            background-color: azure;
+                            
+                            span {
+                                color: black;
+                                font-style: normal;
+                                font-weight: 600;
+                                font-size: 15px;
+                            }
+                        }
+
+                        span {
+                            text-align: center;
+                            color: white;
+                            font-weight: 300;
+                            font-style: italic;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+
+            &-course {
+                width: 75%;
+                height: 100%;
+                display: flex;
+
+                &-content {
+                    border-right: 1px solid rgb(103, 103, 103);
+                }
+
+                &-content, &-ressource {
+                    width: 50%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+
+                    &-title {
+                        width: 100%;
+                        height: 50px;
+                        min-height: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: rgb(55, 55, 55);
+
+                        span {
+                            text-align: center;
+                            font-size: 20px;
+                            color: white;
+                        }
+                    }
+
+                    &-cards {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: column;
+                        padding-top: 20px;
+                        overflow: scroll;
+                        gap: .5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.add-card {
+    width: 70%;
+    height: 45px;
+    min-height: 45px;
+    border: 3px solid rgba(232, 232, 232, 0.7);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+    padding-right: 10px;
+    transition: .4s ease-in-out;
+    background-color: rgba(108, 108, 108, 0.7);
+
+    &:hover{
+        transform: scale(1.01);
+    }
+
+    &-submit {
+        display: none;
+    }
+
+    &-design {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 2rem;
+        cursor: pointer;
+
+        &-placeholder {
+            width: 87.5%;
+            height: 100%;
+            color: rgba(255, 255, 255, 0.869);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+
+        &-cross {
+            width: 12.5%;
+            height: 75%;
+            border: 3px solid rgba(232, 232, 232, 0.7);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+
+            &::after, &::before {
+                height: 3px;
+                width: 12.5px;
+                display: block;
+                position: absolute;
+                background-color: rgba(232, 232, 232, 0.7);
+                border-radius: 2px;
+                transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+                z-index: 10;
+            }
+
+            &::after {
+                content: '';
+                background-color: rgb(232, 232, 232);
+            }
+
+            &::before {
+                content: '';
+                transform: rotate(90deg);
+                background-color: rgb(232, 232, 232);
+            }
+        }
+    }
+}
+
+
+.content-card-wrapper {
+    width: 90%;
+    height: 60px;
+    min-height: 60px;
+    border-radius: 10px;
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+
+    .content-card, .content-card {
+        &-front, &-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+        }
+
+        &-back {
+            transform: rotateX(180deg);
+        }
+    }
+
+    .content-card {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        gap: .5rem;
+    
+        background-color: rgb(196, 196, 196);
+        border-radius: 10px;
+    
+        &-icon {
+            width: 25%;
+            height: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            border-right: 1px solid rgba(232, 232, 232, 0.7);
+    
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    
+        &-name {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        &-edit {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .2rem;
+
+            input {
+                border: none;
+                outline: none;
+                z-index: 2;
+                padding: 5px 0px 5px 5px;
+                border-radius: 15px;
+                
+                &:focus {
+                    outline: 1px solid rgba(0, 0, 0, 0.515);
+                }
+            }
+
+            span {
+                font-style: italic;
+                font-weight: 600;
+            }
+        }
+    
+        &-option {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+    
+            &-wrap {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: azure;
+                border-radius: 10px 0 10px 0;
+                padding: 5px 10px;
+                gap: 0.5rem;
+            }
+    
+            &-dl,  &-edit, &-del, &-save {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+    
+                img {
+                    width: 100%;
+                    height: 100%;
+                    min-width: 20px;
+                    min-height: 20px;
+                }
+            }
+        }
+    }
+}
+
+.flip {
+    transform: rotateX(180deg);
+}

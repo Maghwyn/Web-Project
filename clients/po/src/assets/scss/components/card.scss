@@ -1,0 +1,75 @@
+.card-classes {
+    width: 250px;
+    height: 150px;
+    display: flex;
+    overflow: hidden;
+    transition: .4s ease-in-out;
+    border: 1px solid rgb(78, 78, 78);
+    background-color: rgb(51, 51, 51);
+    border-radius: 20px;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.04);
+    }
+
+    &-name {
+        height: 100%;
+        width: 12.5%;
+        display: flex;
+        justify-content: center;
+        background-color: rgb(73, 73, 73);
+        padding-top: 10px;
+        border-right: 1px solid azure;
+
+        .info-name {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: white;
+        }
+    }
+
+    &-content {
+        display: flex;
+        width: 87.5%;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    &-img {
+        width: 100%;
+        height: 50%;
+        background-color: rgb(155, 72, 72);
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &-info {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .info-po {
+            font-size: 18px;
+            color: white;
+            font-weight: 400;
+        }
+
+        .info-date {
+            font-size: 14px;
+            color: white;
+            font-weight: 300;
+            font-style: italic;
+        }
+    }
+}
