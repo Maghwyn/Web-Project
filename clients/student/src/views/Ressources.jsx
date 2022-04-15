@@ -45,7 +45,7 @@ const Ressources = ({publications, setPublications, categories, setCategories, o
         if(!isExist) setCategories(preVal => [...preVal, {categoryName: name}]);
 
         const data =  await getAllPublications();
-        Notif("#d4c465", "Votre publication a bien été crée");
+        Notif("#d4c465", "Votre publication a bien été crée !");
         setPublications(preVal => preVal = data);
     };
 
