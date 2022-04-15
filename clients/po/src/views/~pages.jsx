@@ -1,6 +1,8 @@
-import {Home, Classes, Ressources} from "./views/Home";
+import Home from "./Home";
+import Classes from "./Classes";
+import Contact from "./Contact";
+import Error from "./Error";
 
-
-export {
-  Home, Classes, Ressources
+export const get = {
+    Home, Classes, Contact, Error
 }

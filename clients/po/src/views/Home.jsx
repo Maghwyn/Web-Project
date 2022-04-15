@@ -1,16 +1,11 @@
-import Fill from "../components/items/fill/Fill";
 import Welcome from "../components/Home/Welcome";
 import Summary from "../components/Home/Summary";
 
-const Home = () => {
-
-    return (
+const Home = () => (
     <>
-    <h1>Home page</h1>
-    {/* <Welcome/>
-    < Summary /> */}
-    <Fill />
-    </>)
-};
+    <Welcome/>
+    < Summary />
+    </>
+)
 
 export default Home;

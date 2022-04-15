@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import "./assets/scss/preload.scss";
+import "./assets/scss/packet.scss";
 
 const container = document.getElementById('root');
 const root = createRoot(container);

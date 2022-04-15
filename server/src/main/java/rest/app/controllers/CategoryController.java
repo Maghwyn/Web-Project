@@ -21,7 +21,6 @@ public class CategoryController {
 
     @GetMapping("/name/{categoryName}")
     public Category getCategoryByName(@PathVariable(value = "categoryName") String categoryName) throws SQLException, URISyntaxException {
-        System.out.println(categoryName);
         return dao.getCategoryByName(categoryName);
     }
 
