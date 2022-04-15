@@ -13,11 +13,11 @@ const PostArticle = ({userId, updateTag}) => {
     })[name]()
 
     const validForm = (e) => {
-        const {name, value} = e.target;
-        if(name === "title") console.log(capitalize(value));
+        let {name, value} = e.target;
+        if(name === "name") value = capitalize(value);
 
         fieldState(name, value);
-        if(form.categoryName && form.content && form.publicationTitle) sendPublication.current = true;
+        if(form.categoryName && form.content && form.publicationTitle && value !== "") sendPublication.current = true;
         else sendPublication.current = false;
     };
 

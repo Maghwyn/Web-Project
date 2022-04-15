@@ -1,0 +1,22 @@
+.error {
+    height: 84vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    &-status {
+        border-right: 3px solid;
+        font-size: 55px;
+        padding: 0 10px 0 10px;
+        text-align: center;
+        color: white;
+    }
+
+    &-message {
+        font-size: 40px;
+        text-align: center;
+        padding: 10px;
+        color: white;
+    }
+}
