@@ -31,6 +31,11 @@ public class ClassController {
         return dao.getClassesAndPoNames();
     }
 
+    @GetMapping("productowners/{id}")
+    public List<Class> getClassesAndPoNamesById(@PathVariable(value="id") int poId) throws SQLException, URISyntaxException{
+        return dao.getClassesAndPoNamesById(poId);
+    }
+
     @GetMapping("{id}")
     public Class getClassById(@PathVariable(value="id") int classId) throws SQLException, URISyntaxException{
         return dao.getClassById(classId);

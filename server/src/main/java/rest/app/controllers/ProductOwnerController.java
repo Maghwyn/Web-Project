@@ -32,6 +32,11 @@ public class ProductOwnerController {
         return dao.getProductOwnerById(poId);
     }
 
+    @GetMapping("g/{gid}")
+    public ProductOwner getProductOwnerByGID(@PathVariable(value="gid") String poGID) throws SQLException, URISyntaxException{
+        return dao.getProductOwnerByGID(poGID);
+    }
+
     @GetMapping("g/{gid}/{token}")
     public ProductOwner getProductOwnerByGID(@PathVariable(value="gid") String poGID, @PathVariable(value="token") String token) throws SQLException, URISyntaxException{
         if(!Objects.equals(token, "3KM0gO-at1nxoVfqb5W5E-HLEHrYH5BLiwpC-jNRlOd")) return new ProductOwner();

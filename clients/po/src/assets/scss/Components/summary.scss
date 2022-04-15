@@ -1,0 +1,36 @@
+.summary { 
+    display: flex;
+    width: 100%;
+    margin-top: 2%;
+    &-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        gap: 2rem;
+        h3 { 
+            width: 100%;
+            text-align: center;
+        }
+
+        &-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 70%;
+            border: solid 5px #ccc;
+            border-radius: 3%;
+            gap: 3rem;
+            padding: 2rem;
+            div { 
+                font-size: clamp(1rem, -0.875rem + 4.533vw, 1.6rem);
+            }
+            div:nth-last-child(1) { 
+                font-weight: bold;
+            }
+            
+         }
+    }
+
+}

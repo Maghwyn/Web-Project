@@ -32,6 +32,7 @@ export async function getUserInfo(token = null) {
     });
 
     if(token === null) return false;
+    token = token.replace(";", "");
 
     const user = await axios.get(`http://localhost:8080/api/v1/users/g/${token}`)
     .then(res => { return res.data; })

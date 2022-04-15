@@ -59,6 +59,31 @@ public class ClassDAO {
         }
     }
 
+    public List<Class> getClassesAndPoNamesById(int poid) throws SQLException, URISyntaxException {
+        try (Connection co = connection.get()) {
+            String sql = 
+                    "SELECT C.*, P.productownerfirstname, P.productownerlastname " +
+                    "FROM classes as C, productowners as P " + 
+                    "WHERE C.productownerid = P.productownerid and C.productownerid=?;";
+            try (PreparedStatement st = co.prepareStatement(sql)) {
+                st.setInt(1, poid);
+                try (ResultSet rs = st.executeQuery()) {
+                    List<Class> list = new ArrayList<>();
+                    while (rs.next()) {
+                        Class c = new Class();
+                        c.setClassId(rs.getInt("classid"));
+                        c.setClassName(rs.getString("classname"));
+                        c.setDate(rs.getString("date"));
+                        c.setProductOwnerFirstName(rs.getString("productownerfirstname"));
+                        c.setProductOwnerLastName(rs.getString("productownerlastname"));
+                        list.add(c);
+                    }
+                    return list;
+                }
+            }
+        }
+    }
+
     public Class getClassById(int cid) throws SQLException, URISyntaxException {
         try (Connection co = connection.get()) {
             String sql = "SELECT * FROM classes WHERE classid=?;";

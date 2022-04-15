@@ -5,7 +5,15 @@
 @import "./views/error.scss";
 @import "./views/classes.scss";
 
+@import "./normalize.scss";
+@import "./config.scss";
+@import "./layout/footer.scss";
+@import "./layout/header.scss";
+@import "./views/error.scss";
+@import "./views/classes.scss";
+
 @import "./views/auth.scss";
 @import "./config.scss";
 @import "./components/buttons.scss";
-@import "./components/categories.scss"
+@import "./components/welcome.scss";
+@import "./components/summary.scss";
