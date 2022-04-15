@@ -1,6 +1,11 @@
+import Summary from "../components/Home/Summary";
+import Welcome from "../components/Home/Welcome";
+
 const Home = () => (
     <>
-        Bienvenue sur le website non officiel de la coding factory
+    <Welcome/>
+    < Summary />
+       
     </>
 )
 
