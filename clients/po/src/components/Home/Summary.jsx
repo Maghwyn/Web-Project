@@ -11,17 +11,15 @@ const Summary = () => {
                          Accédez simplement à vos cours de l'année ! 
                      </div>
                      <div>
-                         Alimentez vos connaissances en partageant ce que vous trouvez sur le web. 
+                         Mettez vos cours en ligne simplement.
                      </div>
                      <div>
-                         Construisez VOS ressources pour créer votre bibliothèque de ressources.
+                         Un échange simple avec les élèves
                      </div>
                      <div>
-                         Devenez acteur de votre vitesse d'apprentissage.
+                         Construit et réalisé pour vous simplifier la vie.
                      </div>
-                     <div>
-                         Tout cela pour les élèves de la Coding Factory !!
-                     </div>
+
                      <div>
                          Future is Now.
                      </div>
