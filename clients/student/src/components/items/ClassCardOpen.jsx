@@ -1,29 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { fetchImages } from "../../functions/utils";
 import ContentCard from "./ContentCard";
-import { getClassesContent, postClassesContent } from "../../functions/classes";
+import { getClassesContent } from "../../functions/classes";
 
 const ClassesCardOpen = ({data, event}) => {
     const [files, setFiles] = useState([]);
     const loading = useRef(true);
     const {image, user} = data;
-
-    const getImage = async (cat, e) => {
-        const img = e.target.files[0];
-        const promise = new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onload = function () {
-                resolve(reader.result);
-            }
-            reader.readAsDataURL(img);
-        });
-
-        promise.then(async base => {
-            const body = {classId: user.classId, contentCategory: cat, contentName: img.name, contentBlob: base};
-            const status = await postClassesContent(body);
-            if(status === 200) setFiles(preArray => [...preArray, body]);
-        });
-    }
 
     useEffect(() => {
         if(loading.current) {

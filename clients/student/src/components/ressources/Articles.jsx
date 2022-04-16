@@ -26,6 +26,7 @@ const Articles = ({userId, searchFound, publications, tagActive, articles, updat
         ));
     };
 
+    // Manage 4 states of the ressources page. (Actually 3)
     return tagActive ? 
                 searchFound.length > 0 ? renderResearch(searchFound) : renderResearch(articles)
               :

@@ -3,6 +3,10 @@ import { getUserInfo } from "../../functions/auth";
 import { getClassesAccess } from "../../functions/classes";
 
 
+// Custom Hook resolving a few issue with the like when the publications array is filtered.
+// All data is fetched and distribued to the component needing them which avoid the use of useMemo/useCallback to prevent
+// the browser from fetching the data each time we switch from one page to another.
+// Issue : It takes more time to load the application.
 const useLoader = () => {
     const [user, setUser] = useState({id: null, firstName: null, lastName: null, email: null, canview: null});
     const [classes, setClasses] = useState([])

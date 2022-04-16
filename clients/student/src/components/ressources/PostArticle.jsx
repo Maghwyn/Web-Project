@@ -6,6 +6,7 @@ const PostArticle = ({userId, updateTag}) => {
     const [form, setForm] = useState({categoryName: "", userId: userId, publicationTitle: "", content: ""})
     const sendPublication = useRef(false);
 
+    // !Careful with this, if the user change the field name of the form the app will send an error.
     const fieldState = (name, $value) => ({
         title   : () => setForm(valid => ({...valid, publicationTitle: $value})),
         content : () => setForm(valid => ({...valid, content: $value})),

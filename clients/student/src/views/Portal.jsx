@@ -1,8 +1,9 @@
+//INFO : This functional component is rendered when the user is not logged, it redirect to student or productowner side.
 const Portal = ({getLogin}) => (
     <main className="auth">
         <div className="auth-box">
             <div className="auth-box-title">
-                <h1>Bienvenue sur random</h1>
+                <h1>Bienvenue sur Coding Source !</h1>
             </div>
             <div className="auth-box-student">
                 <h3>M'authentifier en tant qu'élève</h3>

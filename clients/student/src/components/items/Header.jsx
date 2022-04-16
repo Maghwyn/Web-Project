@@ -15,6 +15,7 @@ const Header = ({ email, publications, setFoundPublication }) => {
             return;
         }
 
+        // Filter publications by the string entered in the search bar.
         const regx = new RegExp(keyword, 'i');
         const results = publications.filter((data) => 
             regx.test(data.publicationTitle.toLowerCase())

@@ -9,7 +9,8 @@ export function fetchImages(str, array = {}) {
     return array[str];
 }
 
-export function fetchExtSvg(ext, array = {}, img = "") {
+// Bad way to import the extension image when adding content to a class.
+export function fetchExtSvg(ext, img = "") {
     if(ext === ".pdf") img = PDF;
     else if(ext === ".zip") img = ZIP;
     else img = IMG;

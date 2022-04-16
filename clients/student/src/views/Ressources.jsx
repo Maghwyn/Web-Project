@@ -12,6 +12,10 @@ const Ressources = ({publications, setPublications, categories, setCategories, o
     const tagActive = useRef("");
 
     const fillPrinted = async (e) => {
+        // Create a filtered array based on the Category Name of the object and store in inside articles State.
+        // We keep the publications unmodified to avoid fetching them again.
+        // IF ELSE condition check wheter or not the user already clicked in this tag or not.
+        // It manage the display between rendering the filtered array and publications array.
         const name = e.target.textContent;
 
         if(tagActive.current !== name) {
@@ -40,6 +44,10 @@ const Ressources = ({publications, setPublications, categories, setCategories, o
     };
 
     const updateTag = async (name) => {
+        // Create the tag if not exist and add it dynamically to the state hook.
+        // Fetch the publications again : NEED A REWORK.
+        // The state should update while adding a new object, not by getting all publications.
+        // TODO : Add an external refresh update to check wheter or not the database added a new post.
         let isExist = false;
         categories.forEach(el => { if(el.categoryName === name) isExist = true; })
         if(!isExist) setCategories(preVal => [...preVal, {categoryName: name}]);
@@ -49,9 +57,10 @@ const Ressources = ({publications, setPublications, categories, setCategories, o
         setPublications(preVal => preVal = data);
     };
 
-
-    // Cheat mode : active.
     const cheatUpdateOpinion = (pid, choice, state) => {
+        // Cheat mode : NOT OPTIMAL.
+        // This function point directly at one of the object value of the state hook and increment it.
+        // ++ and -- directely change the value of the notation inside the object state without rendering it. 
         const pub = publications.find(el => el.publicationId === pid);
 
         if(state === 1) choice === 1 ? pub.liked++ : choice === 2 ? pub.rework++ : pub.deprecated++;
@@ -65,6 +74,11 @@ const Ressources = ({publications, setPublications, categories, setCategories, o
     }
 
     const updatePublication = async (e, userID, publicationID, choice) => {
+        // This function manage the user like on each post and between the three choice available.
+        // IF the user never liked anything, return his first like choice on the post.
+        // IF the user does not have a like on this article, return the like choice on the post.
+        // IF the user does have a like on this article and is clicking on the same choice, decrement it.
+        // IF the user does have a like on this article and is clicking on another choice, increment it and decrement the previous one.
         const body = {userId: userID, publicationId: publicationID, notation: choice};
         if(opinions.length < 1) return createOpinion(publicationID, choice, body, 1);
         const opi = opinions.find(el => el.publicationId === publicationID);

@@ -9,11 +9,12 @@ const ClassesCardOpen = ({data, event}) => {
     const loading = useRef(true);
     const {image, user} = data;
 
+    // Process the file uploaded, either by drag&drop or clicking on the label.
     const getImage = async (cat, e) => {
         const img = e.target.files[0];
         const type = ["image/jpg", "image/jpeg", "image/png", "image/webp", "application/pdf", "application/zip"]
         if(!type.includes(img.type)) return Notif("crimson", "Mauvais format de fichier, verifiez que l'extension du fichier comprend : [.jpg, .jpeg, .png, .webp, .pdf, .zip]");
-        console.log(img);
+
         const promise = new Promise((resolve) => {
             const reader = new FileReader();
             reader.onload = function () {

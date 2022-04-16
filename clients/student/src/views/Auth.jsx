@@ -1,3 +1,4 @@
+//INFO : This functional component is rendered when the student button is clicked.
 const Auth = ({oath}) => (
     <main className="auth">
         <div className="auth-box">
